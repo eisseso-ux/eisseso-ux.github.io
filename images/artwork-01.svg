@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder Artwork One</title>
+  <desc id="desc">Warm abstract gradient placeholder image.</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#e8ba92"/>
+      <stop offset="100%" stop-color="#8c5133"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g1)"/>
+  <circle cx="950" cy="220" r="160" fill="#f4dfcb" opacity="0.45"/>
+</svg>

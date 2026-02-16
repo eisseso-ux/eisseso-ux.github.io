@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artist Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio website template for artists. Easily add new artwork images and captions."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Your Artist Name</h1>
+        <p class="site-subtitle">Painter • Illustrator • Mixed Media</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro container" aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
+        <p>
+          Write a short artist bio here. Keep this section to 2-4 sentences so visitors quickly understand your style,
+          process, and influences.
+        </p>
+      </section>
+
+      <section class="gallery container" aria-labelledby="gallery-heading">
+        <h2 id="gallery-heading">Featured Work</h2>
+
+        <!--
+          HOW TO ADD ARTWORK (copy and paste one <figure> block):
+          1) Place image files in an "images" folder (for example: images/sunrise.jpg)
+          2) Duplicate one <figure class="art-card">...</figure>
+          3) Update src, alt text, title, and caption text
+        -->
+
+        <div class="gallery-grid">
+          <figure class="art-card">
+            <img src="images/artwork-01.svg" alt="Abstract painting in warm earth tones" loading="lazy" />
+            <figcaption>
+              <strong>Artwork Title One</strong>
+              <span>Acrylic on canvas, 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure class="art-card">
+            <img src="images/artwork-02.svg" alt="Blue and white watercolor landscape" loading="lazy" />
+            <figcaption>
+              <strong>Artwork Title Two</strong>
+              <span>Watercolor on paper, 2024</span>
+            </figcaption>
+          </figure>
+
+          <figure class="art-card">
+            <img src="images/artwork-03.svg" alt="Minimalist black ink sketch of a city" loading="lazy" />
+            <figcaption>
+              <strong>Artwork Title Three</strong>
+              <span>Ink on paper, 2023</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="contact container" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p>
+          For commissions or exhibitions, email
+          <a href="mailto:hello@example.com">hello@example.com</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2026 Your Artist Name. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
