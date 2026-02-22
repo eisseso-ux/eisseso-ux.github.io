@@ -231,6 +231,25 @@ a {
   margin-bottom: 1.3rem;
 }
 
+/* Slim delineation between gallery sections (subtle divider like the reference site) */
+.project-section + .project-section {
+  border-top: 1px solid rgba(0,0,0,0.06);
+  margin-top: 1.4rem;
+  padding-top: 1.4rem;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
 .project-section h2 {
   margin: 0;
   font-size: 1.45rem;

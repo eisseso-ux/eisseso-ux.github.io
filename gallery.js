@@ -139,42 +139,58 @@ function readableName(path) {
 // Render a single unified gallery grid without boxed category segments.
 function renderGallery() {
   flatImages = [];
+  galleryRoot.innerHTML = "";
 
   galleryData.forEach((category) => {
+    const section = document.createElement("section");
+    section.className = "project-section";
+
+    const header = document.createElement("div");
+    header.className = "section-header";
+
+    const heading = document.createElement("h2");
+    heading.className = "section-title";
+    heading.textContent = category.title;
+
+    const description = document.createElement("p");
+    description.className = "section-description";
+    description.textContent = category.description;
+
+    header.append(heading, description);
+
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+
     category.images.forEach((imagePath) => {
+      const imageIndex = flatImages.length;
       flatImages.push({
         src: imagePath,
         title: category.title,
         label: readableName(imagePath)
       });
+
+      const button = document.createElement("button");
+      button.className = "gallery-card";
+      button.type = "button";
+      button.setAttribute("aria-label", `Open ${readableName(imagePath)} in fullscreen`);
+      button.addEventListener("click", () => openLightbox(imageIndex));
+
+      const image = document.createElement("img");
+      image.src = safeImagePath(imagePath);
+      image.alt = `${category.title} - ${readableName(imagePath)}`;
+      image.loading = "lazy";
+
+      const meta = document.createElement("div");
+      meta.className = "gallery-meta";
+      meta.innerHTML = `<span class="meta-title">${category.title}</span>`;
+
+      button.append(image, meta);
+      grid.appendChild(button);
     });
+
+    section.append(header, grid);
+    galleryRoot.appendChild(section);
   });
-
-  const grid = document.createElement("div");
-  grid.className = "gallery-grid unified";
-
-  flatImages.forEach((item, index) => {
-    const button = document.createElement("button");
-    button.className = "gallery-card";
-    button.type = "button";
-    button.setAttribute("aria-label", `Open ${item.label} in fullscreen`);
-    button.addEventListener("click", () => openLightbox(index));
-
-    const image = document.createElement("img");
-    image.src = safeImagePath(item.src);
-    image.alt = `${item.title} - ${item.label}`;
-    image.loading = "lazy";
-
-    const meta = document.createElement("div");
-    meta.className = "gallery-meta";
-    meta.innerHTML = `<span class="meta-title">${item.title}</span>`;
-
-    button.append(image, meta);
-    grid.appendChild(button);
-  });
-
-  galleryRoot.innerHTML = "";
-  galleryRoot.appendChild(grid);
 }
 
 function openLightbox(index) {
