@@ -136,49 +136,45 @@ function readableName(path) {
   return fileName.replace(/[-_]/g, " ");
 }
 
-function createGallerySection(category) {
-  const section = document.createElement("section");
-  section.className = "project-section";
+// Render a single unified gallery grid without boxed category segments.
+function renderGallery() {
+  flatImages = [];
 
-  const heading = document.createElement("h2");
-  heading.textContent = category.title;
-
-  const description = document.createElement("p");
-  description.className = "section-description";
-  description.textContent = category.description;
+  galleryData.forEach((category) => {
+    category.images.forEach((imagePath) => {
+      flatImages.push({
+        src: imagePath,
+        title: category.title,
+        label: readableName(imagePath)
+      });
+    });
+  });
 
   const grid = document.createElement("div");
-  grid.className = "gallery-grid";
+  grid.className = "gallery-grid unified";
 
-  category.images.forEach((imagePath) => {
-    const imageIndex = flatImages.length;
-    flatImages.push({
-      src: imagePath,
-      title: category.title,
-      label: readableName(imagePath)
-    });
-
+  flatImages.forEach((item, index) => {
     const button = document.createElement("button");
     button.className = "gallery-card";
     button.type = "button";
-    button.setAttribute("aria-label", `Open ${readableName(imagePath)} in fullscreen`);
-    button.addEventListener("click", () => openLightbox(imageIndex));
+    button.setAttribute("aria-label", `Open ${item.label} in fullscreen`);
+    button.addEventListener("click", () => openLightbox(index));
 
     const image = document.createElement("img");
-    image.src = safeImagePath(imagePath);
-    image.alt = `${category.title} - ${readableName(imagePath)}`;
+    image.src = safeImagePath(item.src);
+    image.alt = `${item.title} - ${item.label}`;
     image.loading = "lazy";
 
-    button.appendChild(image);
+    const meta = document.createElement("div");
+    meta.className = "gallery-meta";
+    meta.innerHTML = `<span class="meta-title">${item.title}</span>`;
+
+    button.append(image, meta);
     grid.appendChild(button);
   });
 
-  section.append(heading, description, grid);
-  galleryRoot.appendChild(section);
-}
-
-function renderGallery() {
-  galleryData.forEach(createGallerySection);
+  galleryRoot.innerHTML = "";
+  galleryRoot.appendChild(grid);
 }
 
 function openLightbox(index) {
