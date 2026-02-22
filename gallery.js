@@ -136,6 +136,74 @@ function readableName(path) {
   return fileName.replace(/[-_]/g, " ");
 }
 
+// Build candidate thumbnail paths (do NOT include full-size image)
+function makeThumbCandidates(fullPath) {
+  const lastSlash = fullPath.lastIndexOf("/");
+  const dir = lastSlash >= 0 ? fullPath.slice(0, lastSlash) : ".";
+  const filename = lastSlash >= 0 ? fullPath.slice(lastSlash + 1) : fullPath;
+  const dot = filename.lastIndexOf(".");
+  const base = dot >= 0 ? filename.slice(0, dot) : filename;
+  const ext = dot >= 0 ? filename.slice(dot) : "";
+
+  return [
+    `${dir}/thumbs/${filename}`,
+    `${dir}/${base}-thumb${ext}`,
+    `${dir}/${base}_thumb${ext}`,
+    `${dir}/${base}-small${ext}`,
+    `${dir}/${base}_small${ext}`,
+    `${dir}/small-${filename}`
+  ];
+}
+
+function tryLoadCandidates(img, candidates) {
+  let i = 0;
+  function tryNext() {
+    if (i >= candidates.length) return;
+    const url = safeImagePath(candidates[i]);
+    img.src = url;
+    const onError = () => {
+      img.removeEventListener('error', onError);
+      img.removeEventListener('load', onLoad);
+      i++;
+      tryNext();
+    };
+    const onLoad = () => {
+      img.removeEventListener('error', onError);
+      img.removeEventListener('load', onLoad);
+    };
+    img.addEventListener('error', onError);
+    img.addEventListener('load', onLoad);
+  }
+  tryNext();
+}
+
+function loadThumbForImg(img) {
+  const raw = img.dataset.fullRaw;
+  if (!raw) return;
+  const candidates = makeThumbCandidates(raw);
+  tryLoadCandidates(img, candidates);
+}
+
+function initThumbnailLoading() {
+  if (!('IntersectionObserver' in window)) {
+    // If IO not supported, attempt to load thumbnails immediately
+    document.querySelectorAll('.gallery-card img').forEach(loadThumbForImg);
+    return;
+  }
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        obs.unobserve(img);
+        loadThumbForImg(img);
+      }
+    });
+  }, { rootMargin: '300px 0px' });
+
+  document.querySelectorAll('.gallery-card img').forEach((img) => io.observe(img));
+}
+
 // Render a single unified gallery grid without boxed category segments.
 function renderGallery() {
   flatImages = [];
@@ -208,9 +276,11 @@ function closeLightbox() {
 }
 
 function updateLightboxImage() {
-  const item = flatImages[currentIndex];
-  lightboxImage.src = safeImagePath(item.src);
-  lightboxImage.alt = `${item.title} - ${item.label}`;
+            image.src = placeholderDataUrl();
+            image.alt = `${category.title} - ${readableName(imagePath)}`;
+            image.loading = "lazy";
+            image.dataset.full = safeImagePath(imagePath);
+            image.dataset.fullRaw = imagePath;
   lightboxCaption.textContent = `${item.title} | ${item.label}`;
 }
 
@@ -254,3 +324,5 @@ lightbox.addEventListener("click", (event) => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 renderGallery();
+// start lazy thumbnail loading after render
+initThumbnailLoading();
