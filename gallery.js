@@ -149,23 +149,23 @@ function thumbPathFor(fullPath) {
 
 // try loading a list of candidate urls into the image element, stopping after first successful load
 function tryLoadCandidates(img, candidates) {
+  // Try each candidate by preloading it with a separate Image() object.
+  // Only swap the visible `img.src` once the candidate successfully loads.
   let i = 0;
   function tryNext() {
     if (i >= candidates.length) return;
     const url = safeImagePath(candidates[i]);
-    img.src = url;
-    const onError = () => {
-      img.removeEventListener('error', onError);
-      img.removeEventListener('load', onLoad);
+    const loader = new Image();
+    loader.onload = () => {
+      // successful load — set the visible image to the loaded thumbnail
+      img.src = url;
+    };
+    loader.onerror = () => {
       i++;
       tryNext();
     };
-    const onLoad = () => {
-      img.removeEventListener('error', onError);
-      img.removeEventListener('load', onLoad);
-    };
-    img.addEventListener('error', onError);
-    img.addEventListener('load', onLoad);
+    // start loading
+    loader.src = url;
   }
   tryNext();
 }
