@@ -2,8 +2,14 @@ name: Image Optimizer
 
 on:
   push:
+    # run when image files change or when workflow files update in .github/
     paths:
       - 'images/**'
+      - '.github/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   generate-thumbs:
