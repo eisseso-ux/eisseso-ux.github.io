@@ -9,8 +9,8 @@
   --text-main: #25211c;
   --text-muted: #5d554b;
   --border: #d9cfc3;
-  --accent: #6e1488;
-  --accent-strong: #58126b;
+  --accent: #a15a2e;
+  --accent-strong: #7f431d;
   --shadow: 0 12px 26px rgba(56, 36, 16, 0.12);
   --container-width: 1100px;
 }
@@ -229,25 +229,6 @@ a {
 .project-section {
   padding: 1.2rem;
   margin-bottom: 1.3rem;
-}
-
-/* Slim delineation between gallery sections (subtle divider like the reference site) */
-.project-section + .project-section {
-  border-top: 1px solid rgba(0,0,0,0.06);
-  margin-top: 1.4rem;
-  padding-top: 1.4rem;
-}
-
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-bottom: 0.8rem;
-}
-
-.section-title {
-  margin: 0;
-  font-size: 1.25rem;
 }
 
 .project-section h2 {
