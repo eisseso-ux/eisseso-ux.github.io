@@ -1,0 +1,33 @@
+name: Image Optimizer
+
+on:
+  push:
+    paths:
+      - 'images/**'
+
+jobs:
+  generate-thumbs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Generate 20px thumbnails
+        run: |
+          set -euo pipefail
+          mkdir -p _thumbs
+          find images -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) -print0 | while IFS= read -r -d '' img; do
+            thumb="_thumbs/$img"
+            mkdir -p "$(dirname "$thumb")"
+            convert "$img" -resize 20x20^ -gravity center -extent 20x20 "$thumb"
+          done
+
+      - name: Commit thumbnails
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add _thumbs || true
+          git commit -m "Add thumbnails" || true
+          git push || true

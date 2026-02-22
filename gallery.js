@@ -131,30 +131,23 @@ function safeImagePath(path) {
   return path.replace(/ /g, "%20");
 }
 
+function placeholderDataUrl() {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'><rect width='16' height='10' fill='%23eee'/></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 function readableName(path) {
   const fileName = path.split("/").pop().replace(/\.[^.]+$/, "");
   return fileName.replace(/[-_]/g, " ");
 }
 
-// Build candidate thumbnail paths (do NOT include full-size image)
-function makeThumbCandidates(fullPath) {
-  const lastSlash = fullPath.lastIndexOf("/");
-  const dir = lastSlash >= 0 ? fullPath.slice(0, lastSlash) : ".";
-  const filename = lastSlash >= 0 ? fullPath.slice(lastSlash + 1) : fullPath;
-  const dot = filename.lastIndexOf(".");
-  const base = dot >= 0 ? filename.slice(0, dot) : filename;
-  const ext = dot >= 0 ? filename.slice(dot) : "";
-
-  return [
-    `${dir}/thumbs/${filename}`,
-    `${dir}/${base}-thumb${ext}`,
-    `${dir}/${base}_thumb${ext}`,
-    `${dir}/${base}-small${ext}`,
-    `${dir}/${base}_small${ext}`,
-    `${dir}/small-${filename}`
-  ];
+// Create the thumbnail path in _thumbs that mirrors the original image path
+function thumbPathFor(fullPath) {
+  // e.g. images/foo.jpg -> _thumbs/images/foo.jpg
+  return `_thumbs/${fullPath}`;
 }
 
+// try loading a list of candidate urls into the image element, stopping after first successful load
 function tryLoadCandidates(img, candidates) {
   let i = 0;
   function tryNext() {
@@ -177,6 +170,25 @@ function tryLoadCandidates(img, candidates) {
   tryNext();
 }
 
+function makeThumbCandidates(fullPath) {
+  const lastSlash = fullPath.lastIndexOf("/");
+  const dir = lastSlash >= 0 ? fullPath.slice(0, lastSlash) : ".";
+  const filename = lastSlash >= 0 ? fullPath.slice(lastSlash + 1) : fullPath;
+  const dot = filename.lastIndexOf(".");
+  const base = dot >= 0 ? filename.slice(0, dot) : filename;
+  const ext = dot >= 0 ? filename.slice(dot) : "";
+
+  return [
+    thumbPathFor(fullPath),
+    `${dir}/thumbs/${filename}`,
+    `${dir}/${base}-thumb${ext}`,
+    `${dir}/${base}_thumb${ext}`,
+    `${dir}/${base}-small${ext}`,
+    `${dir}/${base}_small${ext}`,
+    `${dir}/small-${filename}`
+  ];
+}
+
 function loadThumbForImg(img) {
   const raw = img.dataset.fullRaw;
   if (!raw) return;
@@ -186,7 +198,6 @@ function loadThumbForImg(img) {
 
 function initThumbnailLoading() {
   if (!('IntersectionObserver' in window)) {
-    // If IO not supported, attempt to load thumbnails immediately
     document.querySelectorAll('.gallery-card img').forEach(loadThumbForImg);
     return;
   }
@@ -204,7 +215,6 @@ function initThumbnailLoading() {
   document.querySelectorAll('.gallery-card img').forEach((img) => io.observe(img));
 }
 
-// Render a single unified gallery grid without boxed category segments.
 function renderGallery() {
   flatImages = [];
   galleryRoot.innerHTML = "";
@@ -244,9 +254,12 @@ function renderGallery() {
       button.addEventListener("click", () => openLightbox(imageIndex));
 
       const image = document.createElement("img");
-      image.src = safeImagePath(imagePath);
+      // placeholder shown until thumbnail loads
+      image.src = placeholderDataUrl();
       image.alt = `${category.title} - ${readableName(imagePath)}`;
       image.loading = "lazy";
+      image.dataset.full = safeImagePath(imagePath);
+      image.dataset.fullRaw = imagePath;
 
       const meta = document.createElement("div");
       meta.className = "gallery-meta";
@@ -276,11 +289,10 @@ function closeLightbox() {
 }
 
 function updateLightboxImage() {
-            image.src = placeholderDataUrl();
-            image.alt = `${category.title} - ${readableName(imagePath)}`;
-            image.loading = "lazy";
-            image.dataset.full = safeImagePath(imagePath);
-            image.dataset.fullRaw = imagePath;
+  const item = flatImages[currentIndex];
+  const full = safeImagePath(item.src);
+  lightboxImage.src = full;
+  lightboxImage.alt = `${item.title} - ${item.label}`;
   lightboxCaption.textContent = `${item.title} | ${item.label}`;
 }
 
@@ -322,7 +334,7 @@ lightbox.addEventListener("click", (event) => {
   }
 });
 
+// render + init
 document.getElementById("year").textContent = new Date().getFullYear();
 renderGallery();
-// start lazy thumbnail loading after render
 initThumbnailLoading();
