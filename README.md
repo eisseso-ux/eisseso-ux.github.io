@@ -17,3 +17,5 @@ Personal artist website.
 ## Notes
 - Image paths must match files in the `images` folder.
 - If a filename has spaces, keep the exact filename as written.
+- Making a small edit
+
