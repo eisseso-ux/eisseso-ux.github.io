@@ -27,7 +27,7 @@ jobs:
           find images -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) -print0 | while IFS= read -r -d '' img; do
             thumb="_thumbs/$img"
             mkdir -p "$(dirname "$thumb")"
-            convert "$img" -resize 20x20^ -gravity center -extent 20x20 "$thumb"
+            convert "$img" -resize 200x200^ -gravity center -extent 200x200 "$thumb"
           done
 
       - name: Commit thumbnails
