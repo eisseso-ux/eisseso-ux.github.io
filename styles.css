@@ -167,8 +167,13 @@ h1 {
 }
 
 .main-nav a[aria-current="page"] {
-  color: var(--accent);
+  color: inherit;
   font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  /* keep underline in accent color while leaving text color unchanged */
+  text-decoration-color: var(--accent);
 }
 
 /* ==============================
