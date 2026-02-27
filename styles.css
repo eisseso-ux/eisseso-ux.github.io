@@ -67,6 +67,52 @@ img {
   padding-top: 2.2rem;
 }
 
+/* Header row layout: signature on left, content on the right */
+.site-header .container.header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+.header-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.header-right {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Keep the signature compact and left-aligned */
+.header-left .site-signature,
+.site-signature {
+  display: block;
+  max-width: 220px;
+  max-height: 84px;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+/* Visually hidden but accessible h1 */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Align nav and title content left when using header-row */
+.site-header .header-right .main-nav {
+  justify-content: flex-start;
+  margin-top: 0.6rem;
+}
+
 .eyebrow {
   margin: 0;
   letter-spacing: 0.14em;
