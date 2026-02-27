@@ -113,6 +113,56 @@ img {
   margin-top: 0.6rem;
 }
 
+/* Make eyebrow + subtitle fill the header area, push nav to the right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.header-meta .eyebrow {
+  margin: 0 0 0.25rem 0;
+}
+
+.header-meta .site-subtitle {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.header-right .main-nav {
+  margin-left: auto;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .site-header .container.header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    width: 100%;
+    margin-top: 0.6rem;
+    display: block;
+  }
+
+  .header-right .main-nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0;
+    margin-top: 0.6rem;
+  }
+}
+
 .eyebrow {
   margin: 0;
   letter-spacing: 0.14em;
