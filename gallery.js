@@ -16,10 +16,6 @@ function placeholderDataUrl() {
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-function thumbPathFor(fullPath) {
-    return `_thumbs/${fullPath}`;
-}
-
 function readableName(path) {
     const fileName = path.split("/").pop().replace(/\.[^.]+$/, "");
     return fileName.replace(/[-_]/g, " ");
@@ -94,9 +90,8 @@ function renderGalleryFromData(rootId = 'gallery') {
             img.dataset.full = safeImagePath(imgPath);
             img.dataset.index = index;
 
-            img.src = placeholderDataUrl();
-            img.dataset.src = safeImagePath(thumbPathFor(imgPath));
-            img.dataset.thumb = safeImagePath(thumbPathFor(imgPath));
+            // load the full image directly for thumbnails
+            img.src = safeImagePath(imgPath);
 
             img.onerror = () => {
                 if (!img.classList.contains('thumb-missing')) {
@@ -122,23 +117,7 @@ function renderGalleryFromData(rootId = 'gallery') {
 
     window.__gallery_flat = flat;
 
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-
-    const thumbnailObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const img = entry.target;
-            if (img.dataset.src) {
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-            }
-            observer.unobserve(img);
-        });
-    }, observerOptions);
-
-    Array.from(document.querySelectorAll('.thumb')).forEach(img => {
-        if (img.dataset.src) thumbnailObserver.observe(img);
-    });
+    // thumbnails load full images immediately; no lazy-thumb observer
 
     setupLightbox();
 }
@@ -193,42 +172,8 @@ function openLightbox(index) {
     if (window.__gallery_open) window.__gallery_open(index);
 }
 
-function upgradeThumbnailsToFull() {
-    const imgs = Array.from(document.querySelectorAll('.gallery-thumb'));
-    if (!imgs.length) return;
-
-    imgs.forEach((img, i) => {
-        const full = img.dataset.full;
-        if (!full) return;
-        if (img.dataset.upgraded === '1') return;
-
-        const ext = (full.split('.').pop() || '').toLowerCase();
-        const unsupported = ['heic', 'heif', 'tif', 'tiff', 'psd', 'raw'];
-        if (unsupported.includes(ext)) return;
-
-        setTimeout(() => {
-            const loader = new Image();
-            loader.onload = () => {
-                img.src = full;
-                img.dataset.upgraded = '1';
-            };
-            loader.onerror = () => {
-                if (img.dataset.thumb) img.src = img.dataset.thumb;
-            };
-            loader.src = full;
-        }, i * 120);
-    });
-}
-
 function initGallery() {
     renderGalleryFromData('gallery');
-    window.addEventListener('load', () => {
-        try {
-            upgradeThumbnailsToFull();
-        } catch (e) {
-            console.error('Error upgrading thumbnails:', e);
-        }
-    });
 }
 
 async function loadGallery(options = {}) {
