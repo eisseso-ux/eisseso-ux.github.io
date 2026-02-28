@@ -1,4 +1,4 @@
-name: Generate Per-Folder Gallery JSON
+name: Generate Recursive Gallery JSON
 
 on:
   push:
@@ -14,28 +14,37 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate gallery.json in each image subfolder
+      - name: Generate gallery.json in every folder recursively
         run: |
-          # Find all subdirectories inside images/
-          for dir in images/*/ ; do
-            if [ -d "$dir" ]; then
-              echo "Processing $dir"
+          # Find every directory inside images/
+          find images -type d | while read dir; do
 
-              output="${dir}gallery.json"
+            echo "Processing $dir"
 
-              echo "[" > "$output"
+            output="$dir/gallery.json"
 
-              find "$dir" -maxdepth 1 -type f \( \
-                -iname "*.jpg" -o \
-                -iname "*.jpeg" -o \
-                -iname "*.png" -o \
-                -iname "*.webp" -o \
-                -iname "*.gif" \
-              \) | sort | sed "s|^|\"|; s|$|\",|" >> "$output"
+            # Find images directly inside this directory only
+            images=$(find "$dir" -maxdepth 1 -type f \( \
+              -iname "*.jpg" -o \
+              -iname "*.jpeg" -o \
+              -iname "*.png" -o \
+              -iname "*.webp" -o \
+              -iname "*.gif" \
+            \) | sort)
 
-              sed -i '$ s/,$//' "$output"
-              echo "]" >> "$output"
+            # Skip folder if no images inside it
+            if [ -z "$images" ]; then
+              echo "No images in $dir — skipping"
+              continue
             fi
+
+            echo "[" > "$output"
+
+            echo "$images" | sed 's/^/"/; s/$/",/' >> "$output"
+
+            sed -i '$ s/,$//' "$output"
+            echo "]" >> "$output"
+
           done
 
       - name: Commit updated gallery.json files
@@ -43,5 +52,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add images/**/gallery.json
-          git commit -m "Auto-update per-folder gallery.json" || echo "No changes"
+          git commit -m "Auto-update recursive gallery.json files" || echo "No changes"
           git push
