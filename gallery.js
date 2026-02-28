@@ -13,12 +13,12 @@ function safeImagePath(path) {
 
 function thumbForFullPath(imgPath) {
     if (!imgPath) return imgPath;
-    if (imgPath.includes('_thumbs/')) return imgPath;
+    if (imgPath.includes('thumbs/')) return imgPath;
     const idx = imgPath.indexOf('images/');
     if (idx !== -1) {
-        return imgPath.slice(0, idx) + '_thumbs/' + imgPath.slice(idx);
+        return imgPath.slice(0, idx) + 'thumbs/' + imgPath.slice(idx);
     }
-    return '_thumbs/' + imgPath;
+    return 'thumbs/' + imgPath;
 }
 
 function placeholderDataUrl() {
