@@ -108,6 +108,12 @@ function renderGalleryFromData(rootId = 'gallery') {
             img.src = safeImagePath(thumbForFullPath(imgPath));
 
             img.onerror = () => {
+                // If the thumbnail failed, try the full image once before showing placeholder
+                if (!img.dataset._triedFull) {
+                    img.dataset._triedFull = '1';
+                    img.src = img.dataset.full || safeImagePath(img.dataset.full || '');
+                    return;
+                }
                 if (!img.classList.contains('thumb-missing')) {
                     img.classList.add('thumb-missing');
                     img.src = placeholderDataUrl();
@@ -162,6 +168,11 @@ function renderThumbnailsIfTemplatePresent(flat) {
         img.dataset.full = safeImagePath(item.src);
         img.src = safeImagePath(thumbForFullPath(item.src));
         img.onerror = () => {
+            if (!img.dataset._triedFull) {
+                img.dataset._triedFull = '1';
+                img.src = img.dataset.full || safeImagePath(img.dataset.full || '');
+                return;
+            }
             if (!img.classList.contains('thumb-missing')) {
                 img.classList.add('thumb-missing');
                 img.src = placeholderDataUrl();
