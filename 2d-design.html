@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D Design | Olivia Eisses</title>
+    <meta name="description" content="2D Design gallery by Olivia Eisses." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="container header-row">
+        <div class="header-left">
+          <img src="images/signature.jpeg" alt="Olivia Eisses" class="site-signature" />
+        </div>
+        <div class="header-right">
+          <div class="header-meta">
+            <p class="eyebrow">Artist Portfolio</p>
+            <h1>2D Design</h1>
+            <p class="site-subtitle">Click any image to open fullscreen view.</p>
+          </div>
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects &amp; Artworks</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="projects-main">
+      <div class="container">
+        <h1>2D Design</h1>
+        <div class="gallery" id="gallery-root"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> Olivia Eisses. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      window.galleryData = [
+  {
+    title: '2D Design',
+    description: '',
+    images: [
+      'images/2d design/BlueStickerNoBorder.png',
+      'images/2d design/Design.jpeg',
+      'images/2d design/FinalLogo.png',
+      'images/2d design/GlowLetters.png',
+      'images/2d design/gray.png',
+      'images/2d design/Hideous%20Darlings%20Poster.jpg',
+      'images/2d design/IMG_1848.PNG',
+      'images/2d design/IMG_2776.JPG',
+      'images/2d design/IMG_2777.JPG',
+      'images/2d design/IMG_3375.jpeg',
+      'images/2d design/IMG_6118.JPG',
+      'images/2d design/IMG_6119.JPG',
+      'images/2d design/IMG_7431.jpeg',
+      'images/2d design/Monochrome.png',
+      'images/2d design/navy.png',
+      'images/2d design/Scan%208.jpeg',
+      'images/2d design/Screen%20Shot%202020-07-14%20at%207.35.05%20AM.png',
+      'images/2d design/Screen%20Shot%202020-07-14%20at%207.35.59%20AM.png',
+      'images/2d design/Screen%20Shot%202020-07-14%20at%207.41.06%20AM.png',
+      'images/2d design/Screen%20Shot%202020-07-14%20at%208.11.47%20AM.png',
+      'images/2d design/Screenshot%202025-01-25%20at%203.54.24%E2%80%AFPM.png',
+      'images/2d design/YellowWhiteSticker.png'
+    ]
+  }
+];
+    </script>
+
+    <script src="gallery.js"></script>
+  </body>
+</html>

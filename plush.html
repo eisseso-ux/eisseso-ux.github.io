@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plush | Olivia Eisses</title>
+    <meta name="description" content="Plush gallery by Olivia Eisses." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="container header-row">
+        <div class="header-left">
+          <img src="images/signature.jpeg" alt="Olivia Eisses" class="site-signature" />
+        </div>
+        <div class="header-right">
+          <div class="header-meta">
+            <p class="eyebrow">Artist Portfolio</p>
+            <h1>Plush</h1>
+            <p class="site-subtitle">Click any image to open fullscreen view.</p>
+          </div>
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects &amp; Artworks</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="projects-main">
+      <div class="container">
+        <h1>Plush</h1>
+        <div class="gallery" id="gallery-root"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> Olivia Eisses. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      window.galleryData = [
+  {
+    title: 'Plush',
+    description: '',
+    images: [
+      'images/plush/0231E659-D958-41FB-93B3-98CFD4754037-8a046d6.jpg',
+      'images/plush/0231E659-D958-41FB-93B3-98CFD4754037.jpg',
+      'images/plush/0525978C-6FC2-4A82-8A4D-742ECB2C454C-98faf48.jpg',
+      'images/plush/0B6BF97A-41B2-45C8-BCA3-E17570E07711-3643e19.jpg',
+      'images/plush/11C0590B-05BE-4808-A9EE-211B33A43F13-87b201e.jpg',
+      'images/plush/2024-01-08%2005_49_03%20+0000.jpeg',
+      'images/plush/3B0A899C-B940-40B8-88F3-B020EBDA1F10-63b6526.jpg',
+      'images/plush/40FC789E-7CC3-49BB-8913-0B70DAF89E7C.jpg',
+      'images/plush/8F0F29FB-C398-4B63-9BDF-6502C66E882B.jpg',
+      'images/plush/9BFC96E0-C27B-405F-9B21-B67F3048703C.jpg',
+      'images/plush/B6FB17B6-7ABD-40AB-8B5B-656837460FFB.jpg',
+      'images/plush/FA643882-7A87-4541-9E9D-E3A84EDA16E4.jpg',
+      'images/plush/IMG_1151.jpeg',
+      'images/plush/oge03_2025_rayedits1-1.jpg',
+      'images/plush/oge03_2025_rayedits1-10.jpg',
+      'images/plush/oge03_2025_rayedits1-11.jpg',
+      'images/plush/oge03_2025_rayedits1-12.jpg',
+      'images/plush/oge03_2025_rayedits1-13.jpg',
+      'images/plush/oge03_2025_rayedits1-14.jpg',
+      'images/plush/oge03_2025_rayedits1-15.jpg',
+      'images/plush/oge03_2025_rayedits1-16.jpg',
+      'images/plush/oge03_2025_rayedits1-17.jpg',
+      'images/plush/oge03_2025_rayedits1-2.jpg',
+      'images/plush/oge03_2025_rayedits1-3.jpg',
+      'images/plush/oge03_2025_rayedits1-4.jpg',
+      'images/plush/oge03_2025_rayedits1-5.jpg',
+      'images/plush/oge03_2025_rayedits1-6.jpg',
+      'images/plush/oge03_2025_rayedits1-7.jpg',
+      'images/plush/oge03_2025_rayedits1-8.jpg',
+      'images/plush/oge03_2025_rayedits1-9.jpg',
+      'images/plush/oge03_2025_slugshootedits1-1.jpg',
+      'images/plush/oge03_2025_slugshootedits1-10.jpg',
+      'images/plush/oge03_2025_slugshootedits1-11.jpg',
+      'images/plush/oge03_2025_slugshootedits1-12.jpg',
+      'images/plush/oge03_2025_slugshootedits1-13.jpg',
+      'images/plush/oge03_2025_slugshootedits1-14.jpg',
+      'images/plush/oge03_2025_slugshootedits1-15.jpg',
+      'images/plush/oge03_2025_slugshootedits1-16.jpg',
+      'images/plush/oge03_2025_slugshootedits1-17.jpg',
+      'images/plush/oge08_2023_etsyedits-16-2.jpg',
+      'images/plush/oge08_2023_etsyedits-17-2.jpg',
+      'images/plush/oge08_2023_etsyedits-18-2.jpg',
+      'images/plush/oge08_2023_etsyedits-20-2.jpg',
+      'images/plush/oge08_2023_etsyedits-3-2.jpg',
+      'images/plush/oge10_2025_Starfish-1.JPG',
+      'images/plush/oge10_2025_Starfish-16.JPG',
+      'images/plush/oge10_2025_Starfish-18.JPG',
+      'images/plush/oge10_2025_Starfish-21.JPG',
+      'images/plush/oge10_2025_Starfish-22.JPG',
+      'images/plush/oge10_2025_Starfish-25.JPG',
+      'images/plush/oge10_2025_Starfish-28.JPG',
+      'images/plush/oge10_2025_Starfish-29.JPG',
+      'images/plush/oge10_2025_Starfish-3.JPG',
+      'images/plush/oge10_2025_Starfish-31.JPG',
+      'images/plush/oge10_2025_Starfish-32.JPG',
+      'images/plush/oge10_2025_Starfish-35.JPG',
+      'images/plush/oge10_2025_Starfish-36.JPG',
+      'images/plush/oge10_2025_Starfish-40.JPG',
+      'images/plush/oge10_2025_Starfish-42.JPG',
+      'images/plush/oge10_2025_Starfish-43.JPG',
+      'images/plush/oge10_2025_Starfish-44.JPG',
+      'images/plush/oge10_2025_Starfish-45.JPG',
+      'images/plush/oge10_2025_Starfish-46.JPG',
+      'images/plush/oge10_2025_Starfish-5.JPG',
+      'images/plush/oge10_2025_Starfish-50.JPG',
+      'images/plush/oge10_2025_Starfish-52.JPG',
+      'images/plush/oge10_2025_Starfish-54.JPG',
+      'images/plush/oge10_2025_Starfish-56.JPG',
+      'images/plush/oge10_2025_Starfish-63.JPG',
+      'images/plush/oge10_2025_Starfish-8.JPG'
+    ]
+  }
+];
+    </script>
+
+    <script src="gallery.js"></script>
+  </body>
+</html>
