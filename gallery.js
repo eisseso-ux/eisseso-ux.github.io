@@ -362,14 +362,15 @@ function renderGalleryFromData(rootId = 'gallery-root') {
       btn.setAttribute('aria-label', `Open ${readableName(imgPath)} in fullscreen`);
 
       const img = document.createElement('img');
-      img.className = 'gallery-thumb';
+      img.className = 'gallery-thumb thumb';
       img.alt = `${category.title} - ${readableName(imgPath)}`;
       img.loading = 'lazy';
       img.dataset.full = safeImagePath(imgPath);
       img.dataset.index = index;
 
-      // Start with thumbnail path (fast, small)
-      img.src = safeImagePath(thumbPathFor(imgPath));
+      // Use a tiny placeholder first and defer loading the real thumbnail
+      img.src = placeholderDataUrl();
+      img.dataset.src = safeImagePath(thumbPathFor(imgPath));
 
       // if thumb missing, keep placeholder until full swaps in
       img.onerror = () => {
@@ -396,6 +397,29 @@ function renderGalleryFromData(rootId = 'gallery-root') {
 
   // store flat images for lightbox
   window.__gallery_flat = flat;
+
+  // ===========================
+  // Lazy-load thumbnails via IntersectionObserver
+  // ===========================
+  const placeholder = placeholderDataUrl();
+  const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+
+  const thumbnailObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+      observer.unobserve(img);
+    });
+  }, observerOptions);
+
+  // Observe all thumbs we just rendered
+  Array.from(document.querySelectorAll('.thumb')).forEach(img => {
+    if (img.dataset.src) thumbnailObserver.observe(img);
+  });
 
   // ensure lightbox exists and wire events
   setupLightbox();
