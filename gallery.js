@@ -101,6 +101,8 @@ function renderGalleryFromData(rootId = 'gallery-root') {
       // Use a tiny placeholder first and defer loading the real thumbnail
       img.src = placeholderDataUrl();
       img.dataset.src = safeImagePath(thumbPathFor(imgPath));
+      // also keep an explicit thumb path to fall back to if full-res can't be displayed
+      img.dataset.thumb = safeImagePath(thumbPathFor(imgPath));
 
       // if thumb missing, keep placeholder until full swaps in
       img.onerror = () => {
@@ -219,6 +221,11 @@ function upgradeThumbnailsToFull() {
     // if full already set, skip
     if (img.dataset.upgraded === '1') return;
 
+    // skip upgrading for file types browsers may not support
+    const ext = (full.split('.').pop() || '').toLowerCase();
+    const unsupported = ['heic', 'heif', 'tif', 'tiff', 'psd', 'raw'];
+    if (unsupported.includes(ext)) return;
+
     // stagger by 120ms per image
     setTimeout(() => {
       const loader = new Image();
@@ -227,7 +234,8 @@ function upgradeThumbnailsToFull() {
         img.dataset.upgraded = '1';
       };
       loader.onerror = () => {
-        // keep thumb / placeholder if full fails
+        // fall back to the thumb if full fails
+        if (img.dataset.thumb) img.src = img.dataset.thumb;
       };
       loader.src = full;
     }, i * 120);
