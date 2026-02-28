@@ -30,7 +30,7 @@
     <main class="projects-main">
       <div class="container">
         <h1>Wearable Design</h1>
-        <div class="gallery" id="gallery-root"></div>
+        <div class="gallery" id="gallery"></div>
       </div>
     </main>
 
@@ -40,37 +40,12 @@
       </div>
     </footer>
 
-    <script>
-      window.galleryData = [
-  {
-    title: 'Wearable Design',
-    description: '',
-    images: [
-      'images/wearable design/IMG_0288.jpg',
-      'images/wearable design/IMG_0350.heic',
-      'images/wearable design/IMG_0545 2.jpeg',
-      'images/wearable design/IMG_0548 2.jpeg',
-      'images/wearable design/IMG_0550.jpeg',
-      'images/wearable design/IMG_0551.jpeg',
-      'images/wearable design/IMG_0558.jpeg',
-      'images/wearable design/IMG_0564.jpeg',
-      'images/wearable design/IMG_0572.jpeg',
-      'images/wearable design/IMG_0574.jpeg',
-      'images/wearable design/IMG_0580.jpeg',
-      'images/wearable design/IMG_0613.jpeg',
-      'images/wearable design/clothing/oge12_2024_Quilt&Earrings-10.jpg',
-      'images/wearable design/clothing/oge12_2024_Quilt&Earrings-13.jpg',
-      'images/wearable design/clothing/oge12_2024_Quilt&Earrings-17.jpg',
-      'images/wearable design/jewelry/oge12_2024_Quilt&Earrings-2.jpg',
-      'images/wearable design/jewelry/oge12_2024_Quilt&Earrings-7.jpg',
-      'images/wearable design/jewelry/oge12_2024_Quilt&Earrings-9.jpg',
-      'images/wearable design/jewelry/oge12_2024_Quilt&Earrings-10.jpg',
-      'images/wearable design/jewelry/oge12_2024_Quilt&Earrings-13.jpg'
-    ]
-  }
-];
-    </script>
+    
 
-    <script src="gallery.js"></script>
+    <script>
+  loadGallery({
+    jsonPath: "images/wearable-design/gallery.json"
+  });
+</script>
   </body>
 </html>

@@ -30,7 +30,8 @@
     <main class="projects-main">
       <div class="container">
         <h1>Sculpture</h1>
-        <div class="gallery" id="gallery-root"></div>
+        <div class="gallery" id="gallery
+        "></div>
       </div>
     </main>
 
@@ -39,76 +40,10 @@
         <p>&copy; <span id="year"></span> Olivia Eisses. All rights reserved.</p>
       </div>
     </footer>
-
-    <script>
-      window.galleryData = [
-  {
-    title: 'Sculpture',
-    description: '',
-    images: [
-      'images/sculpture/70062880692__EFC53687-9317-4294-92BD-06B5C736.jpeg',
-      'images/sculpture/70318868136__98DA6A44-E5B9-490D-85A2-446AB4A4.jpeg',
-      'images/sculpture/DSCF0284.JPG',
-      'images/sculpture/Eisses_14.JPG',
-      'images/sculpture/Eisses_20-665a307.JPG',
-      'images/sculpture/IMG_0049.jpeg',
-      'images/sculpture/IMG_0468.jpg',
-      'images/sculpture/IMG_0585.jpeg',
-      'images/sculpture/IMG_1989-fd324a0.JPG',
-      'images/sculpture/IMG_1989.JPG',
-      'images/sculpture/IMG_1992.JPG',
-      'images/sculpture/IMG_2001.JPG',
-      'images/sculpture/IMG_2008.JPG',
-      'images/sculpture/IMG_2009.JPG',
-      'images/sculpture/IMG_2012.JPG',
-      'images/sculpture/IMG_2013.JPG',
-      'images/sculpture/IMG_2014.JPG',
-      'images/sculpture/IMG_2017.JPG',
-      'images/sculpture/IMG_2018.JPG',
-      'images/sculpture/IMG_2019.JPG',
-      'images/sculpture/IMG_2020.JPG',
-      'images/sculpture/IMG_2021-4919178.JPG',
-      'images/sculpture/IMG_2021.JPG',
-      'images/sculpture/IMG_2022.JPG',
-      'images/sculpture/IMG_2024.JPG',
-      'images/sculpture/IMG_2026-669963d.JPG',
-      'images/sculpture/IMG_2026.JPG',
-      'images/sculpture/IMG_2028.JPG',
-      'images/sculpture/IMG_2030-0c84a4e.JPG',
-      'images/sculpture/IMG_2030.JPG',
-      'images/sculpture/IMG_2031.JPG',
-      'images/sculpture/IMG_2032-020dbfe.JPG',
-      'images/sculpture/IMG_2032.JPG',
-      'images/sculpture/IMG_2036-c59086b.JPG',
-      'images/sculpture/IMG_2036.JPG',
-      'images/sculpture/IMG_2040.JPG',
-      'images/sculpture/IMG_2041-486775c.JPG',
-      'images/sculpture/IMG_2041.JPG',
-      'images/sculpture/IMG_2043.JPG',
-      'images/sculpture/IMG_2046-da2d237.JPG',
-      'images/sculpture/IMG_2046.JPG',
-      'images/sculpture/IMG_2047-642baf6.JPG',
-      'images/sculpture/IMG_2047-b2b2b6f.JPG',
-      'images/sculpture/IMG_2047.JPG',
-      'images/sculpture/IMG_2048.JPG',
-      'images/sculpture/IMG_2050.JPG',
-      'images/sculpture/IMG_2052.JPG',
-      'images/sculpture/IMG_2053.JPG',
-      'images/sculpture/IMG_2054.JPG',
-      'images/sculpture/IMG_2055.JPG',
-      'images/sculpture/IMG_2056-642baf6.JPG',
-      'images/sculpture/IMG_2057-fa56cd4.JPG',
-      'images/sculpture/IMG_2058.JPG',
-      'images/sculpture/IMG_2059-b33b7c4.JPG',
-      'images/sculpture/IMG_3816.jpeg',
-      'images/sculpture/IMG_6852.jpeg',
-      'images/sculpture/IMG_6984.jpeg',
-      'images/sculpture/kidneyshrimp.JPG'
-    ]
-  }
-];
-    </script>
-
-    <script src="gallery.js"></script>
+<script>
+  loadGallery({
+    jsonPath: "images/sculpture/gallery.json"
+  });
+</script>
   </body>
 </html>
