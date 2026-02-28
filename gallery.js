@@ -18,7 +18,7 @@ function thumbForFullPath(imgPath) {
     if (idx !== -1) {
         return imgPath.slice(0, idx) + '_thumbs/' + imgPath.slice(idx);
     }
-    return '_thumbs/images/' + imgPath;
+    return '_thumbs/' + imgPath;
 }
 
 function placeholderDataUrl() {
