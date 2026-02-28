@@ -45,12 +45,12 @@ function ensureLightboxMarkup() {
     lb.setAttribute('aria-hidden', 'true');
 
     lb.innerHTML = `
-        <div class="lightbox-figure">
+        <div class="lightbox-figure" style="position:relative;">
             <button id="lightbox-close" class="lightbox-close">Close</button>
             <img id="lightbox-image" alt="" />
             <figcaption id="lightbox-caption"></figcaption>
-            <button id="lightbox-prev" class="lightbox-arrow lightbox-prev">‹</button>
-            <button id="lightbox-next" class="lightbox-arrow lightbox-next">›</button>
+            <button id="lightbox-prev" class="lightbox-arrow lightbox-prev" style="position:absolute; left:12px; top:50%; transform:translateY(-50%);">‹</button>
+            <button id="lightbox-next" class="lightbox-arrow lightbox-next" style="position:absolute; right:12px; top:50%; transform:translateY(-50%);">›</button>
         </div>
     `;
 
