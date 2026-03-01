@@ -121,10 +121,6 @@ function renderGalleryFromData(rootId = 'gallery') {
             };
 
             btn.appendChild(img);
-            const meta = document.createElement('div');
-            meta.className = 'gallery-meta';
-            meta.textContent = category.title || '';
-            btn.appendChild(meta);
 
             btn.addEventListener('click', () => openLightbox(index));
 
