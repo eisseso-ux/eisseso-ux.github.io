@@ -120,5 +120,30 @@
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
+    <script>
+      (function(){
+        const DELAY = 300;
+        document.querySelectorAll('.nav-dropdown').forEach(drop => {
+          let timeout = null;
+          const toggle = drop.querySelector('.drop-toggle');
+          function open(){
+            clearTimeout(timeout);
+            drop.classList.add('open');
+            if(toggle) toggle.setAttribute('aria-expanded','true');
+          }
+          function close(){
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>{
+              drop.classList.remove('open');
+              if(toggle) toggle.setAttribute('aria-expanded','false');
+            }, DELAY);
+          }
+          drop.addEventListener('mouseenter', open);
+          drop.addEventListener('mouseleave', close);
+          drop.addEventListener('focusin', open);
+          drop.addEventListener('focusout', close);
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -287,7 +287,7 @@ h1 {
 .nav-dropdown .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 2px);
   left: 0;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -296,6 +296,10 @@ h1 {
   min-width: 220px;
   padding: 0.35rem 0;
   z-index: 120;
+  transition: opacity 160ms ease, transform 160ms ease;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
 }
 
 .nav-dropdown .dropdown-menu a {
@@ -311,9 +315,14 @@ h1 {
   color: var(--accent-strong);
 }
 
+/* show when hovered or when JS adds .open */
 .nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu {
+.nav-dropdown:focus-within .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
   display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* ==============================
