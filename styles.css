@@ -269,10 +269,10 @@ h1 {
   color: inherit;
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  /* keep underline in accent color while leaving text color unchanged */
-  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  /* keep underline same color as the text */
+  text-decoration-color: currentColor;
 }
 
 /* Dropdown menu for Projects & Artworks */
