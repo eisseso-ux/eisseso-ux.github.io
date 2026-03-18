@@ -659,14 +659,6 @@ a {
   .hero-image img {
     min-height: 280px;
   }
-
-  .about-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .about-image img {
-    min-height: 300px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -704,6 +696,14 @@ a {
 
   .button-link {
     width: 100%;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image img {
+    min-height: 300px;
   }
 
   /* Stack the header logo + nav for mobile */
