@@ -73,6 +73,7 @@ img {
   align-items: flex-start;
   gap: 1.2rem;
   text-align: left;
+  justify-content: space-between;
 }
 
 .header-left {
