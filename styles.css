@@ -70,7 +70,7 @@ img {
 /* Header row layout: signature on left, content on the right */
 .site-header .container.header-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1.2rem;
   text-align: left;
   justify-content: space-between;
@@ -79,7 +79,7 @@ img {
 .header-left {
   flex: 0 0 auto;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.6rem;
 }
 
@@ -289,9 +289,9 @@ h1 {
   color: inherit;
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 3px;
   text-decoration-style: wavy;
-  text-underline-offset: 3px;
+  text-underline-offset: 5px;
   /* keep underline same color as the text */
   text-decoration-color: currentColor;
 }
