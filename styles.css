@@ -637,4 +637,13 @@ a {
   .lightbox-next {
     right: 0.4rem;
   }
+
+  .contact-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .button-link {
+    width: 100%;
+  }
 }
