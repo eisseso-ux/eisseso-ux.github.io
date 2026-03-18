@@ -290,9 +290,9 @@ h1 {
   top: calc(100% + 2px);
   left: 0;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 8px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   min-width: 220px;
   padding: 0.35rem 0;
   z-index: 120;
