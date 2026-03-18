@@ -366,16 +366,18 @@ h1 {
 
 .button-link {
   display: inline-block;
-  background: var(--accent);
-  color: white;
+  background: transparent;
+  color: black;
   text-decoration: none;
+  border: 2px solid black;
   border-radius: 0;
   padding: 0.7rem 1rem;
   font-weight: 600;
 }
 
 .button-link:hover {
-  background: var(--accent-strong);
+  background: black;
+  color: white;
 }
 
 .hero-image {
