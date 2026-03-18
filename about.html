@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Olivia Eisses</title>
+    <meta
+      name="description"
+      content="Learn about Olivia Eisses, a multidisciplinary artist."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="container header-row">
+        <div class="header-left">
+          <img src="images/logos/oliviaeissesnamelogo.svg" alt="Olivia Eisses" class="site-signature" />
+        </div>
+        <div class="header-right">
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html" aria-current="page">About</a>
+            <div class="nav-dropdown">
+              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false">Projects &amp; Artworks</a>
+              <div class="dropdown-menu" aria-label="Project categories">
+                <a href="2d-design.html">2D Design</a>
+                <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
+                <a href="photography.html">Photography</a>
+                <a href="plush.html">Plush</a>
+                <a href="sculpture.html">Sculpture</a>
+                <a href="wearable-design.html">Wearable Design</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="about-section">
+        <div class="container about-layout">
+          <figure class="about-image">
+            <!-- EASY EDIT: Replace with your self-portrait image -->
+            <img
+              src="images/Photography/originals-1.jpg"
+              alt="Self portrait of Olivia Eisses"
+            />
+          </figure>
+
+          <div class="about-copy">
+            <h1>About Me</h1>
+
+            <!-- EASY EDIT: Replace this paragraph text with your artist bio. -->
+            <p>
+              Olivia is an artist and creative with a passion for the strange and wonderful. 
+              She received a BA in Studio Art from Wheaton College, but has been making, 
+              designing, and crafting her entire life. Her skills portfolio is broad and she is always 
+              learning new processes.
+            </p>
+
+            <p>
+              She works part time as an artist, taking commissions and selling things 
+              you should absolutely go buy on her Etsy shop.
+            </p>
+
+            <p>
+              In her art she loves balancing the comforting and the creepy. 
+              She creates dreams with just a dash of nightmare to keep you grounded 
+              (or sometimes the opposite). Themes in Olivia's work include dreams, the awkwardness 
+              and grace of the human body, other-worldly creatures, storytelling and nonsense. She 
+              deeply loves people, and uses her art to connect people to each other, the world around 
+              them, and most of all themselves.
+            </p>
+
+            <p>
+              If this sounds like something you would like to partner with Olivia on, 
+              please reach out about commissions or collaborations!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> Olivia Eisses. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script>
+      (function(){
+        const DELAY = 300;
+        document.querySelectorAll('.nav-dropdown').forEach(drop => {
+          let timeout = null;
+          const toggle = drop.querySelector('.drop-toggle');
+          function open(){
+            clearTimeout(timeout);
+            drop.classList.add('open');
+            if(toggle) toggle.setAttribute('aria-expanded','true');
+          }
+          function close(){
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>{
+              drop.classList.remove('open');
+              if(toggle) toggle.setAttribute('aria-expanded','false');
+            }, DELAY);
+          }
+          drop.addEventListener('mouseenter', open);
+          drop.addEventListener('mouseleave', close);
+          drop.addEventListener('focusin', open);
+          drop.addEventListener('focusout', close);
+        });
+      })();
+    </script>
+  </body>
+</html>
