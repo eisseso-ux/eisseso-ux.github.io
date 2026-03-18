@@ -647,4 +647,20 @@ a {
   .button-link {
     width: 100%;
   }
+
+  /* Stack the header logo + nav for mobile */
+  .header-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
 }
