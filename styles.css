@@ -291,7 +291,7 @@ h1 {
   left: 0;
   background: var(--surface);
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: none;
   min-width: 220px;
   padding: 0.35rem 0;
