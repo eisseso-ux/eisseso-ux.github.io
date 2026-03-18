@@ -425,6 +425,14 @@ h1 {
   margin-bottom: 0.35rem;
 }
 
+.contact-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem 0 0;
+}
+
 a {
   color: var(--accent-strong);
 }
