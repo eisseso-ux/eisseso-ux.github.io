@@ -369,7 +369,7 @@ h1 {
   background: var(--accent);
   color: white;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 0;
   padding: 0.7rem 1rem;
   font-weight: 600;
 }
@@ -557,7 +557,7 @@ a {
   border: 1px solid #fff;
   background: transparent;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 0.45rem 0.7rem;
   cursor: pointer;
 }
