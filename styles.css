@@ -134,7 +134,7 @@ img {
 /* Compact projects index gallery (smaller cards) — scoped to .index-gallery */
 .index-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.85rem;
   align-items: start;
 }
@@ -148,6 +148,7 @@ img {
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
 }
 
 .index-gallery .project-card:hover,
@@ -163,16 +164,24 @@ img {
 }
 
 .index-gallery .project-card-meta {
-  padding: 0.6rem 0.7rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.7rem 1rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   text-align: center;
-  color: var(--text-main);
+  color: white;
+  border: 2px solid white;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  text-decoration: none;
 }
 
 @media (max-width: 640px) {
   .index-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.6rem;
   }
 
