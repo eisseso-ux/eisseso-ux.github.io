@@ -90,11 +90,11 @@ img {
 .header-left .site-signature,
 .site-signature {
   display: block;
-  max-width: 220px;
-  max-height: 84px;
+  max-width: 440px;
+  max-height: 168px;
   width: auto;
   height: auto;
-  margin: 0;
+  margin: 0 0 0 -20px;
 }
 
 /* Visually hidden but accessible h1 */
