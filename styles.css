@@ -375,6 +375,7 @@ h1 {
   font-weight: 600;
   width: 12.5vw;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .button-link:hover {
