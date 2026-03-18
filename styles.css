@@ -245,7 +245,7 @@ h1 {
 .main-nav {
   margin-top: 1.2rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
