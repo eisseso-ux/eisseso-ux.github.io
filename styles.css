@@ -288,12 +288,28 @@ h1 {
 .main-nav a[aria-current="page"] {
   color: inherit;
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-decoration-style: wavy;
-  text-underline-offset: 5px;
-  /* keep underline same color as the text */
-  text-decoration-color: currentColor;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.main-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0,3 C2,1 4,5 6,3 C8,1 10,5 12,3 C14,1 16,5 16,3' stroke='currentColor' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 16px 6px;
+  animation: nav-wave 1s ease-out forwards;
+  z-index: 0;
+}
+
+@keyframes nav-wave {
+  from { background-position: 0 0; }
+  to { background-position: 32px 0; }
 }
 
 /* Dropdown menu for Projects & Artworks */
