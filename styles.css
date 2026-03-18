@@ -90,11 +90,11 @@ img {
 .header-left .site-signature,
 .site-signature {
   display: block;
-  max-width: 440px;
-  max-height: 168px;
+  max-width: 520px;
+  max-height: 200px;
   width: auto;
   height: auto;
-  margin: 0 0 0 -20px;
+  margin: 0 0 0 -40px;
 }
 
 /* Visually hidden but accessible h1 */
@@ -662,5 +662,12 @@ a {
 
   .main-nav {
     justify-content: center;
+  }
+
+  .header-left .site-signature,
+  .site-signature {
+    max-width: 90vw;
+    max-height: none;
+    margin: 0;
   }
 }
