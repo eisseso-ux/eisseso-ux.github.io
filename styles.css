@@ -109,17 +109,17 @@ img {
   white-space: nowrap;
 }
 
-/* Align nav and title content left when using header-row */
-.site-header .header-left .main-nav {
-  justify-content: flex-start;
-  margin-top: 0.6rem;
-}
-
-/* Make eyebrow + subtitle fill the header area, push nav to the right */
+/* Push navigation to the right side of the header row */
 .header-right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
+}
+
+.header-right .main-nav {
+  margin-top: 0;
+  justify-content: flex-end;
 }
 
 /* Compact projects index gallery (smaller cards) — scoped to .index-gallery */
@@ -196,14 +196,6 @@ img {
   color: var(--text-muted);
 }
 
-.header-left .main-nav {
-  margin-left: 0;
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
 @media (max-width: 900px) {
   .site-header .container.header-row {
     align-items: flex-start;
@@ -214,10 +206,9 @@ img {
     margin-top: 0.6rem;
     display: block;
   }
-  .header-left .main-nav {
+  .header-right .main-nav {
     display: flex;
     justify-content: flex-start;
-    margin-left: 0;
     margin-top: 0.6rem;
   }
 }
