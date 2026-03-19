@@ -83,15 +83,6 @@ img {
   gap: 0.6rem;
 }
 
-.slug-logo {
-  display: block;
-  max-width: 110px;
-  max-height: 240px;
-  width: auto;
-  height: auto;
-  margin: 0;
-}
-
 .header-right {
   flex: 1 1 auto;
   min-width: 0;
