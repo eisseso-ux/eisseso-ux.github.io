@@ -92,8 +92,8 @@ img {
 .header-left .site-signature,
 .site-signature {
   display: block;
-  max-width: 520px;
-  max-height: 200px;
+  max-width: 640px;
+  max-height: 240px;
   width: auto;
   height: auto;
   margin: 0 0 0 -40px;
@@ -231,16 +231,6 @@ h1 {
 .site-subtitle {
   margin: 0;
   color: var(--text-muted);
-}
-
-/* Signature image in header */
-.site-signature {
-  display: block;
-  max-width: 320px;
-  max-height: 84px;
-  width: auto;
-  height: auto;
-  margin: 0.25rem auto 0;
 }
 
 .main-nav {
