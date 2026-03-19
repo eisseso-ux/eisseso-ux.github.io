@@ -31,6 +31,34 @@ function readableName(path) {
     return fileName.replace(/[-_]/g, " ");
 }
 
+function readableFolderName(name) {
+    if (!name) return '';
+    return decodeURIComponent(name)
+        .replace(/[-_]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function normalizeGalleryData(data, fallbackTitle = '') {
+    if (Array.isArray(data) && data.length && typeof data[0] === 'string') {
+        return [{ title: fallbackTitle, description: '', images: data }];
+    }
+
+    if (Array.isArray(data)) {
+        return data;
+    }
+
+    if (data && Array.isArray(data.images)) {
+        return [{
+            title: data.title || fallbackTitle,
+            description: data.description || '',
+            images: data.images
+        }];
+    }
+
+    throw new Error('Unsupported JSON format for gallery data');
+}
+
 function ensureLightboxMarkup() {
     // Prefer an inline `.gallery .lightbox` provided by the page template
     const pageLightbox = document.querySelector('.gallery .lightbox');
@@ -252,22 +280,79 @@ async function loadGallery(options = {}) {
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
 
-        let galleryData;
-        if (Array.isArray(data) && data.length && typeof data[0] === 'string') {
-            galleryData = [{ title: title || (document.querySelector('h1')?.textContent || ''), description: '', images: data }];
-        } else if (Array.isArray(data)) {
-            galleryData = data;
-        } else if (data && Array.isArray(data.images)) {
-            galleryData = [{ title: data.title || title || '', description: data.description || '', images: data.images }];
-        } else {
-            throw new Error('Unsupported JSON format for gallery data');
-        }
+        const galleryData = normalizeGalleryData(
+            data,
+            title || (document.querySelector('h1')?.textContent || '')
+        );
 
         window.galleryData = galleryData;
         renderGalleryFromData(galleryId);
     } catch (err) {
         console.error('Failed to load gallery JSON:', err);
     }
+}
+
+async function loadFolderGalleries(options = {}) {
+    const {
+        basePath,
+        folders = [],
+        galleryId = 'gallery',
+        title
+    } = options;
+
+    if (!basePath) {
+        console.warn('loadFolderGalleries: no basePath provided');
+        return;
+    }
+
+    const normalizedBase = basePath.replace(/\/$/, '');
+    const sections = [];
+
+    if (!Array.isArray(folders) || folders.length === 0) {
+        await loadGallery({
+            jsonPath: `${normalizedBase}/gallery.json`,
+            galleryId,
+            title: title || (document.querySelector('h1')?.textContent || '')
+        });
+        return;
+    }
+
+    await Promise.all(
+        folders.map(async (folder) => {
+            const folderPath = `${normalizedBase}/${folder}`;
+            const jsonPath = `${folderPath}/gallery.json`;
+
+            try {
+                const resp = await fetch(jsonPath);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                const parsed = normalizeGalleryData(data, readableFolderName(folder));
+
+                parsed.forEach((section) => {
+                    sections.push({
+                        title: section.title || readableFolderName(folder),
+                        description: section.description || '',
+                        images: section.images || []
+                    });
+                });
+            } catch (err) {
+                console.warn(`Failed to load subfolder gallery JSON: ${jsonPath}`, err);
+            }
+        })
+    );
+
+    if (!sections.length) {
+        console.warn('No subfolder galleries loaded; falling back to base gallery.json');
+        await loadGallery({
+            jsonPath: `${normalizedBase}/gallery.json`,
+            galleryId,
+            title: title || (document.querySelector('h1')?.textContent || '')
+        });
+        return;
+    }
+
+    window.galleryData = sections;
+    renderGalleryFromData(galleryId);
 }
 
 document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
