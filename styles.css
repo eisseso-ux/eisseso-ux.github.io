@@ -289,18 +289,21 @@ h1 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -4px;
-  height: 4px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0,3 C2,1 4,5 6,3 C8,1 10,5 12,3 C14,1 16,5 16,3' stroke='currentColor' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+  bottom: -2px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='12' viewBox='0 0 16 12'%3E%3Cpath d='M0,6 Q2,0 4,6 Q6,12 8,6 Q10,0 12,6 Q14,12 16,6' stroke='currentColor' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-size: 16px 6px;
-  animation: nav-wave 1s ease-out forwards;
+  background-size: 16px 12px;
+  animation: nav-wiggle 0.8s ease-in-out forwards;
   z-index: 0;
 }
 
-@keyframes nav-wave {
-  from { background-position: 0 0; }
-  to { background-position: 32px 0; }
+@keyframes nav-wiggle {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-3px); }
+  50% { transform: translateY(3px); }
+  75% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }
 
 /* Dropdown menu for Projects & Artworks */
