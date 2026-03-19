@@ -206,7 +206,6 @@ img {
 
 @media (max-width: 900px) {
   .site-header .container.header-row {
-    flex-direction: column;
     align-items: flex-start;
   }
 
