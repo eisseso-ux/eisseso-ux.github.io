@@ -752,6 +752,7 @@ a {
     gap: 0.45rem;
     flex-wrap: wrap;
     overflow-x: visible;
+    padding-bottom: 0.7rem;
   }
 
   .header-right .main-nav {
