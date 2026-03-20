@@ -26,6 +26,13 @@ function placeholderDataUrl() {
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
+function setTileRatio(card, img) {
+    if (!card || !img) return;
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    card.style.setProperty('--gallery-ratio', `${img.naturalWidth} / ${img.naturalHeight}`);
+    card.classList.add('tile-ready');
+}
+
 function readableName(path) {
     const fileName = path.split("/").pop().replace(/\.[^.]+$/, "");
     return fileName.replace(/[-_]/g, " ");
@@ -131,6 +138,9 @@ function renderGalleryFromData(rootId = 'gallery') {
             img.loading = 'lazy';
             img.dataset.full = safeImagePath(imgPath);
             img.dataset.index = index;
+            img.decoding = 'async';
+
+            img.addEventListener('load', () => setTileRatio(btn, img), { once: true });
 
             // load a pre-generated thumbnail when available (falls back to full image path)
             img.src = safeImagePath(thumbForFullPath(imgPath));
@@ -153,6 +163,10 @@ function renderGalleryFromData(rootId = 'gallery') {
             btn.addEventListener('click', () => openLightbox(index));
 
             grid.appendChild(btn);
+
+            if (img.complete) {
+                setTileRatio(btn, img);
+            }
         });
 
         section.append(header, grid);
