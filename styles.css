@@ -144,10 +144,10 @@ img {
   display: block;
   text-decoration: none;
   color: inherit;
-  background: var(--surface);
+  background: transparent;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   transition: transform 180ms ease, box-shadow 180ms ease;
   position: relative;
 }
