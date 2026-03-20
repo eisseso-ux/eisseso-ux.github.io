@@ -20,20 +20,28 @@ jobs:
       - name: Install ImageMagick
         run: sudo apt-get update && sudo apt-get install -y imagemagick
 
-      - name: Generate 20px thumbnails
+      - name: Generate optimized high-res thumbnails
         run: |
           set -euo pipefail
-          mkdir -p _thumbs
+          mkdir -p thumbs
           find images -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) -print0 | while IFS= read -r -d '' img; do
-            thumb="_thumbs/$img"
+            thumb="thumbs/${img%.*}.webp"
             mkdir -p "$(dirname "$thumb")"
-            convert "$img" -resize 200x200^ -gravity center -extent 200x200 "$thumb"
+            # 720px longest side keeps thumbnails crisp on modern/high-DPI displays.
+            convert "$img" \
+              -auto-orient \
+              -resize '720x720>' \
+              -strip \
+              -quality 82 \
+              -define webp:method=6 \
+              -define webp:auto-filter=true \
+              "$thumb"
           done
 
       - name: Commit thumbnails
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add _thumbs || true
-          git commit -m "Add thumbnails" || true
+          git add thumbs || true
+          git commit -m "Update optimized thumbnails" || true
           git push || true

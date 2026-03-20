@@ -521,7 +521,7 @@ a {
   position: relative;
   display: block;
   width: 100%;
-  margin: 0 0 1rem;
+  margin: 1rem 0 0;
   break-inside: avoid;
   aspect-ratio: var(--gallery-ratio, 4 / 3);
 }

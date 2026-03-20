@@ -71,7 +71,7 @@
         ];
 
         function thumbFor(path){
-          return 'thumbs/' + path;
+          return ('thumbs/' + path).replace(/\.[^./]+$/, '.webp');
         }
 
         const root = document.getElementById('gallery-root');
