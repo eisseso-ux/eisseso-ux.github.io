@@ -78,6 +78,8 @@ img {
   gap: 1.2rem;
   text-align: left;
   justify-content: space-between;
+  padding-left: 0.35rem;
+  padding-right: 1rem;
 }
 
 .header-left {
@@ -96,11 +98,11 @@ img {
 .header-left .site-signature,
 .site-signature {
   display: block;
-  width: min(520px, 48vw);
-  max-width: 100%;
+  width: auto;
+  max-width: min(520px, 48vw);
+  height: clamp(44px, 6vh, 60px);
   max-height: 60px;
-  height: auto;
-  margin: 0 0 0 -40px;
+  margin: 0;
 }
 
 /* Visually hidden but accessible h1 */
