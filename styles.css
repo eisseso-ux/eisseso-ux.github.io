@@ -247,20 +247,22 @@ h1 {
 .main-nav a[aria-current="page"]::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 18px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='18' viewBox='0 0 16 18'%3E%3Cpath d='M0,9 Q2,2 4,9 Q6,16 8,9 Q10,2 12,9 Q14,16 16,9' stroke='black' stroke-width='1' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  left: 50%;
+  bottom: -14px;
+  width: clamp(76px, 9vw, 136px);
+  height: 24px;
+  transform: translateX(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='316' height='24' viewBox='0 0 316 24'%3E%3Cpath d='M8 12 C18 4 28 4 38 12 S58 20 68 12 S88 4 98 12 S118 20 128 12 S148 4 158 12 S178 20 188 12 S208 4 218 12 S238 20 248 12 S268 4 278 12 S298 20 308 12' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-size: 16px 18px;
-  animation: nav-wiggle 2s ease-in-out infinite;
+  background-size: auto 100%;
+  animation: nav-wiggle 1.8s linear infinite;
+  pointer-events: none;
   z-index: 0;
 }
 
 @keyframes nav-wiggle {
   0% { background-position-x: 0; }
-  100% { background-position-x: -16px; }
+  100% { background-position-x: -63px; }
 }
 
 /* Dropdown menu for Projects & Artworks */
