@@ -152,6 +152,21 @@ img {
   position: relative;
 }
 
+.index-gallery .project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0.52) 0%,
+    rgba(0, 0, 0, 0.36) 24%,
+    rgba(0, 0, 0, 0.14) 44%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
 .index-gallery .project-card:hover,
 .index-gallery .project-card:focus-visible {
   transform: translateY(-6px);
@@ -159,9 +174,12 @@ img {
 
 .index-gallery .project-sample {
   width: 100%;
-  height: 120px;
-  object-fit: cover;
+  height: clamp(180px, 22vw, 260px);
+  object-fit: contain;
+  object-position: center;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .index-gallery .project-card-meta {
@@ -175,9 +193,10 @@ img {
   text-align: center;
   color: white;
   border: 2px solid white;
-  background: rgba(0, 0, 0, 0.4);
+  background: transparent;
   border-radius: 0;
   text-decoration: none;
+  z-index: 3;
 }
 
 @media (max-width: 640px) {
@@ -187,7 +206,7 @@ img {
   }
 
   .index-gallery .project-sample {
-    height: 96px;
+    height: clamp(140px, 42vw, 220px);
   }
 }
 @media (min-width: 641px) and (max-width: 900px) {
