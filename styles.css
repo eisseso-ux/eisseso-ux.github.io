@@ -243,7 +243,7 @@ h1 {
   position: relative;
   z-index: 1;
 }
-
+/* Currently operates by translating an svg image. Should be switched to a animated effect in the future so it can have both ends rounded.*/
 .main-nav a[aria-current="page"]::after {
   content: "";
   position: absolute;
@@ -261,12 +261,12 @@ h1 {
 }
 
 @keyframes nav-wiggle {
-  0% { background-position-x: 0; }
-  20% { background-position-x: calc(var(--nav-wave-period) * -0.2); }
-  40% { background-position-x: calc(var(--nav-wave-period) * -0.4); }
-  60% { background-position-x: calc(var(--nav-wave-period) * -0.6); }
-  80% { background-position-x: calc(var(--nav-wave-period) * -0.8); }
-  100% { background-position-x: calc(var(--nav-wave-period) * -1); }
+  0% { background-position-x: -10px; }
+  20% { background-position-x: calc(var(--nav-wave-period) * -0.2 - 10px); }
+  40% { background-position-x: calc(var(--nav-wave-period) * -0.4 - 10px); }
+  60% { background-position-x: calc(var(--nav-wave-period) * -0.6 - 10px); }
+  80% { background-position-x: calc(var(--nav-wave-period) * -0.8 - 10px); }
+  100% { background-position-x: calc(var(--nav-wave-period) * -1 - 10px); }
 }
 
 /* Dropdown menu for Projects & Artworks */
@@ -507,9 +507,8 @@ a {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  column-count: 3;
+  column-gap: 1rem;
 }
 
 .gallery-card {
@@ -520,12 +519,16 @@ a {
   background: transparent;
   cursor: pointer;
   position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem;
+  break-inside: avoid;
 }
 
 .gallery-card img {
   width: 100%;
-  height: 280px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   transition: transform 220ms cubic-bezier(.2,.9,.3,1);
   display: block;
   border-radius: 0;
@@ -667,6 +670,10 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .gallery-grid {
+    column-count: 2;
+  }
+
   .hero-image img {
     min-height: 280px;
   }
@@ -678,12 +685,12 @@ a {
   }
 
   .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
+    column-count: 1;
+    column-gap: 0;
   }
 
   .gallery-card img {
-    height: 150px;
+    height: auto;
   }
 
   .lightbox-arrow {
