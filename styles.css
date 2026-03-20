@@ -59,8 +59,12 @@ img {
 }
 
 .site-header .container {
-  padding: 20px;
+  padding: 10px 20px;
   text-align: center;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .compact-header .container {
@@ -94,7 +98,7 @@ img {
   display: block;
   width: min(520px, 48vw);
   max-width: 100%;
-  max-height: 240px;
+  max-height: 80px;
   height: auto;
   margin: 0 0 0 -40px;
 }
