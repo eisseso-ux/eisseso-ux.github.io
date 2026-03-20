@@ -159,9 +159,10 @@ img {
   background: radial-gradient(
     circle at 50% 50%,
     rgba(0, 0, 0, 0.52) 0%,
-    rgba(0, 0, 0, 0.36) 24%,
-    rgba(0, 0, 0, 0.14) 44%,
-    rgba(0, 0, 0, 0) 70%
+    rgba(0, 0, 0, 0.427) 24%,
+    rgba(0, 0, 0, 0.23) 44%,
+    rgba(0, 0, 0, 0.14) 60%,
+    rgba(0, 0, 0, 0) 80%
   );
   pointer-events: none;
   z-index: 2;
