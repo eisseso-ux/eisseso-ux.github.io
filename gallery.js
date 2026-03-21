@@ -344,7 +344,6 @@ async function loadFolderGalleries(options = {}) {
     }
 
     const normalizedBase = basePath.replace(/\/$/, '');
-    const sections = [];
 
     if (!Array.isArray(folders) || folders.length === 0) {
         await loadGallery({
@@ -355,7 +354,7 @@ async function loadFolderGalleries(options = {}) {
         return;
     }
 
-    await Promise.all(
+    const folderSections = await Promise.all(
         folders.map(async (folder) => {
             const folderPath = `${normalizedBase}/${folder}`;
             const jsonPath = `${folderPath}/gallery.json`;
@@ -366,18 +365,21 @@ async function loadFolderGalleries(options = {}) {
                 const data = await resp.json();
                 const parsed = normalizeGalleryData(data, readableFolderName(folder));
 
-                parsed.forEach((section) => {
-                    sections.push({
+                return parsed.map((section) => {
+                    return {
                         title: section.title || readableFolderName(folder),
                         description: section.description || '',
                         images: section.images || []
-                    });
+                    };
                 });
             } catch (err) {
                 console.warn(`Failed to load subfolder gallery JSON: ${jsonPath}`, err);
+                return [];
             }
         })
     );
+
+    const sections = folderSections.flat();
 
     if (!sections.length) {
         console.warn('No subfolder galleries loaded; falling back to base gallery.json');
