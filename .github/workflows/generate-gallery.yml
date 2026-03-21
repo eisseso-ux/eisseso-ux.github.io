@@ -31,21 +31,20 @@ jobs:
               -iname "*.gif"
             \) -print0 | sort -z)
 
-            if [ ${#files[@]} -eq 0 ]; then
-              echo "No images in $dir - skipping"
-              continue
-            fi
-
             : > "$output"
             printf '[\n' >> "$output"
-            for i in "${!files[@]}"; do
-              file="${files[$i]%$'\0'}"
-              if [ "$i" -lt "$(( ${#files[@]} - 1 ))" ]; then
-                printf '  "%s",\n' "$file" >> "$output"
-              else
-                printf '  "%s"\n' "$file" >> "$output"
-              fi
-            done
+            if [ ${#files[@]} -eq 0 ]; then
+              echo "No images in $dir - writing empty gallery.json"
+            else
+              for i in "${!files[@]}"; do
+                file="${files[$i]%$'\0'}"
+                if [ "$i" -lt "$(( ${#files[@]} - 1 ))" ]; then
+                  printf '  "%s",\n' "$file" >> "$output"
+                else
+                  printf '  "%s"\n' "$file" >> "$output"
+                fi
+              done
+            fi
             printf ']\n' >> "$output"
           done
 
@@ -53,6 +52,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add images/**/gallery.json
+          find images -type f -name "gallery.json" -print0 | xargs -0 git add
           git commit -m "Auto-update recursive gallery.json files" || echo "No changes"
           git push
