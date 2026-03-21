@@ -47,6 +47,18 @@ function readableFolderName(name) {
         .trim();
 }
 
+function normalizeImageEntry(entry) {
+    if (typeof entry === 'string') {
+        return { src: entry, caption: '' };
+    }
+
+    if (entry && typeof entry === 'object' && typeof entry.path === 'string') {
+        return { src: entry.path, caption: entry.caption || '' };
+    }
+
+    return null;
+}
+
 function normalizeGalleryData(data, fallbackTitle = '') {
     if (Array.isArray(data) && data.length && typeof data[0] === 'string') {
         return [{ title: fallbackTitle, description: '', images: data }];
@@ -124,9 +136,17 @@ function renderGalleryFromData(rootId = 'gallery') {
         const grid = document.createElement('div');
         grid.className = 'gallery-grid';
 
-            (category.images || []).forEach((imgPath) => {
+            (category.images || []).forEach((entry) => {
+            const image = normalizeImageEntry(entry);
+            if (!image) return;
+            const imgPath = image.src;
             const index = flat.length;
-            flat.push({ src: imgPath, title: category.title || '', label: readableName(imgPath) });
+            flat.push({
+                src: imgPath,
+                title: category.title || '',
+                label: readableName(imgPath),
+                caption: image.caption
+            });
 
             const btn = document.createElement('button');
             btn.className = 'gallery-card';
@@ -243,7 +263,10 @@ function setupLightbox() {
             img.src = safeImagePath(item.src);
             img.alt = `${item.title} - ${item.label}`;
         }
-        if (caption) caption.textContent = `${item.title} | ${item.label}`;
+        if (caption) {
+            const fallbackCaption = `${item.title} | ${item.label}`;
+            caption.textContent = (item.caption || '').trim() || fallbackCaption;
+        }
         lb.classList.add('visible');
         lb.setAttribute('aria-hidden', 'false');
         document.body.classList.add('no-scroll');
