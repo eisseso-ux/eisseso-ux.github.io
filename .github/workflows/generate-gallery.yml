@@ -16,35 +16,37 @@ jobs:
 
       - name: Generate gallery.json in every folder recursively
         run: |
-          # Find every directory inside images/
-          find images -type d | while read dir; do
-
+          # Handle every directory recursively, including paths with spaces.
+          find images -type d -print0 | while IFS= read -r -d '' dir; do
             echo "Processing $dir"
 
             output="$dir/gallery.json"
 
-            # Find images directly inside this directory only
-            images=$(find "$dir" -maxdepth 1 -type f \( \
-              -iname "*.jpg" -o \
-              -iname "*.jpeg" -o \
-              -iname "*.png" -o \
-              -iname "*.webp" -o \
-              -iname "*.gif" \
-            \) | sort)
+            # Build a sorted list of images directly inside this directory only.
+            mapfile -d '' files < <(find "$dir" -maxdepth 1 -type f \(
+              -iname "*.jpg" -o
+              -iname "*.jpeg" -o
+              -iname "*.png" -o
+              -iname "*.webp" -o
+              -iname "*.gif"
+            \) -print0 | sort -z)
 
-            # Skip folder if no images inside it
-            if [ -z "$images" ]; then
-              echo "No images in $dir — skipping"
+            if [ ${#files[@]} -eq 0 ]; then
+              echo "No images in $dir - skipping"
               continue
             fi
 
-            echo "[" > "$output"
-
-            echo "$images" | sed 's/^/"/; s/$/",/' >> "$output"
-
-            sed -i '$ s/,$//' "$output"
-            echo "]" >> "$output"
-
+            : > "$output"
+            printf '[\n' >> "$output"
+            for i in "${!files[@]}"; do
+              file="${files[$i]%$'\0'}"
+              if [ "$i" -lt "$(( ${#files[@]} - 1 ))" ]; then
+                printf '  "%s",\n' "$file" >> "$output"
+              else
+                printf '  "%s"\n' "$file" >> "$output"
+              fi
+            done
+            printf ']\n' >> "$output"
           done
 
       - name: Commit updated gallery.json files
