@@ -26,14 +26,13 @@ jobs:
             # Build a list of images directly inside this directory only.
             files=()
             while IFS= read -r -d '' file; do
-              files+=("$file")
-            done < <(find "$dir" -maxdepth 2 -type f \(
-              -iname "*.jpg" -o
-              -iname "*.jpeg" -o
-              -iname "*.png" -o
-              -iname "*.webp" -o
-              -iname "*.gif"
-            \) -print0)
+              lower="${file,,}"
+              case "$lower" in
+                *.jpg|*.jpeg|*.png|*.webp|*.gif)
+                  files+=("$file")
+                  ;;
+              esac
+            done < <(find "$dir" -maxdepth 2 -type f -print0)
 
             : > "$output"
             printf '[\n' >> "$output"
