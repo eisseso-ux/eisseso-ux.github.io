@@ -59,6 +59,42 @@ function normalizeImageEntry(entry) {
     return null;
 }
 
+function deriveCaptionPath(jsonPath) {
+    if (!jsonPath) return '';
+    return jsonPath.replace(/gallery\.json$/i, 'caption.json');
+}
+
+async function fetchCaptionMap(captionPath) {
+    if (!captionPath) return {};
+
+    try {
+        const resp = await fetch(captionPath);
+        if (!resp.ok) {
+            if (resp.status !== 404) {
+                console.warn(`Failed to load captions: ${captionPath} (HTTP ${resp.status})`);
+            }
+            return {};
+        }
+
+        const data = await resp.json();
+        if (data && typeof data === 'object' && !Array.isArray(data)) {
+            return data;
+        }
+
+        console.warn(`Unsupported caption format in ${captionPath}; expected an object map`);
+        return {};
+    } catch (err) {
+        console.warn(`Failed to load captions: ${captionPath}`, err);
+        return {};
+    }
+}
+
+function captionForPath(captionMap, imgPath) {
+    if (!captionMap || !imgPath) return '';
+    const caption = captionMap[imgPath];
+    return typeof caption === 'string' ? caption : '';
+}
+
 function normalizeGalleryData(data, fallbackTitle = '') {
     if (Array.isArray(data) && data.length && typeof data[0] === 'string') {
         return [{ title: fallbackTitle, description: '', images: data }];
@@ -106,7 +142,7 @@ function ensureLightboxMarkup() {
     return lb;
 }
 
-function renderGalleryFromData(rootId = 'gallery') {
+function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
     const galleryRoot = document.getElementById(rootId);
     if (!galleryRoot) return;
 
@@ -145,7 +181,7 @@ function renderGalleryFromData(rootId = 'gallery') {
                 src: imgPath,
                 title: category.title || '',
                 label: readableName(imgPath),
-                caption: image.caption
+                caption: image.caption || captionForPath(captionsByPath, imgPath)
             });
 
             const btn = document.createElement('button');
@@ -305,7 +341,7 @@ function initGallery() {
 }
 
 async function loadGallery(options = {}) {
-    const { jsonPath, galleryId = 'gallery', title } = options;
+    const { jsonPath, captionPath, galleryId = 'gallery', title } = options;
 
     if (!jsonPath) {
         console.warn('loadGallery: no jsonPath provided, attempting to render existing galleryData');
@@ -322,14 +358,14 @@ async function loadGallery(options = {}) {
             data,
             title || (document.querySelector('h1')?.textContent || '')
         );
+        const captionsByPath = await fetchCaptionMap(captionPath || deriveCaptionPath(jsonPath));
 
         window.galleryData = galleryData;
-        renderGalleryFromData(galleryId);
+        renderGalleryFromData(galleryId, captionsByPath);
     } catch (err) {
         console.error('Failed to load gallery JSON:', err);
     }
 }
-
 async function loadFolderGalleries(options = {}) {
     const {
         basePath,
@@ -348,6 +384,7 @@ async function loadFolderGalleries(options = {}) {
     if (!Array.isArray(folders) || folders.length === 0) {
         await loadGallery({
             jsonPath: `${normalizedBase}/gallery.json`,
+            captionPath: `${normalizedBase}/caption.json`,
             galleryId,
             title: title || (document.querySelector('h1')?.textContent || '')
         });
@@ -360,16 +397,27 @@ async function loadFolderGalleries(options = {}) {
             const jsonPath = `${folderPath}/gallery.json`;
 
             try {
-                const resp = await fetch(jsonPath);
+                const [resp, captionMap] = await Promise.all([
+                    fetch(jsonPath),
+                    fetchCaptionMap(`${folderPath}/caption.json`)
+                ]);
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 const data = await resp.json();
                 const parsed = normalizeGalleryData(data, readableFolderName(folder));
 
                 return parsed.map((section) => {
+                    const sectionImages = section.images || [];
                     return {
                         title: section.title || readableFolderName(folder),
                         description: section.description || '',
-                        images: section.images || []
+                        images: sectionImages.map((entry) => {
+                            const image = normalizeImageEntry(entry);
+                            if (!image) return entry;
+                            return {
+                                path: image.src,
+                                caption: image.caption || captionForPath(captionMap, image.src)
+                            };
+                        })
                     };
                 });
             } catch (err) {
