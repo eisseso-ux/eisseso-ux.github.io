@@ -271,10 +271,11 @@ h1 {
   bottom: -14px;
   width: 100%;
   height: 24px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='316' height='24' viewBox='0 0 316 24'%3E%3Cpath d='M8 12 C18 4 28 4 38 12 S58 20 68 12 S88 4 98 12 S118 20 128 12 S148 4 158 12 S178 20 188 12 S208 4 218 12 S238 20 248 12 S268 4 278 12 S298 20 308 12' fill='none' stroke='black' stroke-width='4' stroke-linecap='butt'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='316' height='24' viewBox='0 0 316 24'%3E%3Cpath d='M8 12 C18 4 28 4 38 12 S58 20 68 12 S88 4 98 12 S118 20 128 12 S148 4 158 12 S178 20 188 12 S208 4 218 12 S238 20 248 12 S268 4 278 12 S298 20 308 12' fill='none' stroke='black' stroke-width='2' stroke-linecap='butt'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-size: auto 100%;
-  --nav-wave-period: 60px;
+  --nav-wave-scale: 0.8;
+  background-size: calc(316px * var(--nav-wave-scale)) 100%;
+  --nav-wave-period: calc(60px * var(--nav-wave-scale));
   animation: nav-wiggle 1.8s linear infinite;
   pointer-events: none;
   z-index: 0;
