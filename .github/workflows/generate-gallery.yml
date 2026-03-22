@@ -23,16 +23,18 @@ jobs:
 
             output="$dir/gallery.json"
 
-            # Build a list of images directly inside this directory only.
+            # Build a list of images directly inside this directory only, preserving folder order.
             files=()
-            while IFS= read -r -d '' file; do
-              lower="${file,,}"
-              case "$lower" in
-                *.jpg|*.jpeg|*.png|*.webp|*.gif)
-                  files+=("$file")
-                  ;;
-              esac
-            done < <(find "$dir" -maxdepth 2 -type f -print0)
+            if [ -d "$dir" ]; then
+              while IFS= read -r file; do
+                lower="${file,,}"
+                case "$lower" in
+                  *.jpg|*.jpeg|*.png|*.webp|*.gif)
+                    files+=("$dir/$file")
+                    ;;
+                esac
+              done < <(ls -1 "$dir" 2>/dev/null || true)
+            fi
 
             : > "$output"
             printf '[\n' >> "$output"
