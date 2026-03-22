@@ -34,6 +34,77 @@ function setTileRatio(card, img) {
     card.classList.add('tile-ready');
 }
 
+const masonryState = {
+    resizeBound: false
+};
+
+function getGridColumnCount(grid) {
+    const count = parseInt(window.getComputedStyle(grid).columnCount, 10);
+    return Number.isFinite(count) && count > 0 ? count : 1;
+}
+
+function collectCardsInSourceOrder(grid) {
+    const cards = Array.from(grid.querySelectorAll('.gallery-card'));
+    cards.sort((a, b) => {
+        const aOrder = parseInt(a.dataset.order || '0', 10);
+        const bOrder = parseInt(b.dataset.order || '0', 10);
+        return aOrder - bOrder;
+    });
+    return cards;
+}
+
+function applyLeftToRightMasonry(grid) {
+    if (!grid) return;
+
+    const cards = collectCardsInSourceOrder(grid);
+    if (!cards.length) return;
+
+    const colCount = getGridColumnCount(grid);
+    const computed = window.getComputedStyle(grid);
+    const gap = computed.columnGap || '1rem';
+
+    const cols = Array.from({ length: colCount }, () => {
+        const col = document.createElement('div');
+        col.className = 'gallery-grid-col';
+        col.style.display = 'flex';
+        col.style.flexDirection = 'column';
+        return col;
+    });
+
+    cards.forEach((card, idx) => {
+        cols[idx % colCount].appendChild(card);
+    });
+
+    grid.innerHTML = '';
+    grid.style.columnCount = 'initial';
+    grid.style.columnGap = 'normal';
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = `repeat(${colCount}, minmax(0, 1fr))`;
+    grid.style.gap = gap;
+
+    cols.forEach((col) => grid.appendChild(col));
+}
+
+function applyLeftToRightMasonryAll() {
+    document.querySelectorAll('.gallery-grid').forEach((grid) => {
+        applyLeftToRightMasonry(grid);
+    });
+}
+
+function ensureMasonryResizeHandler() {
+    if (masonryState.resizeBound) return;
+    masonryState.resizeBound = true;
+
+    let resizeRaf = null;
+    window.addEventListener('resize', () => {
+        if (resizeRaf) window.cancelAnimationFrame(resizeRaf);
+        resizeRaf = window.requestAnimationFrame(() => {
+            applyLeftToRightMasonryAll();
+            resizeRaf = null;
+        });
+    });
+}
+
 function readableName(path) {
     const fileName = path.split("/").pop().replace(/\.[^.]+$/, "");
     return fileName.replace(/[-_]/g, " ");
@@ -187,6 +258,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
             const btn = document.createElement('button');
             btn.className = 'gallery-card';
             btn.type = 'button';
+            btn.dataset.order = String(index);
             btn.setAttribute('aria-label', `Open ${readableName(imgPath)} in fullscreen`);
 
             const img = document.createElement('img');
@@ -235,6 +307,8 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
     // thumbnails load full images immediately; no lazy-thumb observer
 
     setupLightbox();
+    ensureMasonryResizeHandler();
+    window.requestAnimationFrame(applyLeftToRightMasonryAll);
 
     // Render compact thumbnail strip when page uses the `.gallery` template
     try {
