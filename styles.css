@@ -273,7 +273,7 @@ h1 {
   height: 24px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='24' viewBox='0 0 320 24'%3E%3Cpath d='M0 12 Q8 4 16 12 T32 12 T48 12 T64 12 T80 12 T96 12 T112 12 T128 12 T144 12 T160 12 T176 12 T192 12 T208 12 T224 12 T240 12 T256 12 T272 12 T288 12 T304 12 T320 12' fill='none' stroke='%23166c7d' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  --nav-wave-scale: 0.4;
+  --nav-wave-scale: 0.7;
   background-size: calc(320px * var(--nav-wave-scale)) 100%;
   --nav-wave-period: calc(32px * var(--nav-wave-scale));
   animation: nav-wiggle 1.8s linear infinite;
