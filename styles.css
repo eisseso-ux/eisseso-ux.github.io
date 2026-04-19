@@ -3,9 +3,10 @@
    Update these colors first.
    ============================== */
 :@import url("https://use.typekit.net/nyj5edu.css");
+
 :root {
   /* Primary Typekit font (exact family name from the kit) */
-  --primary-font: "rl-horizon";
+  --primary-font: "yink";
   --page-bg: #f3f8fb;
   --surface: #ffffff;
   --surface-strong: #e6f0f4;
@@ -29,7 +30,9 @@ body {
 }
 
 body {
-  font-family: var(--primary-font), "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "yink", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   color: var(--text-main);
   background:
     radial-gradient(circle at 12% 8%, #ffffff 0%, transparent 34%),
