@@ -4,8 +4,8 @@
    ============================== */
 :@import url("https://use.typekit.net/nyj5edu.css");
 :root {
-  /* Primary Typekit font (from your Adobe kit) */
-  --primary-font: "RL Horizon";
+  /* Primary Typekit font (exact family name from the kit) */
+  --primary-font: "rl-horizon";
   --page-bg: #f3f8fb;
   --surface: #ffffff;
   --surface-strong: #e6f0f4;
