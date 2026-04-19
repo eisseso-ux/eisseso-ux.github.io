@@ -2,11 +2,11 @@
    EASY THEME SETTINGS
    Update these colors first.
    ============================== */
-@import url("https://use.typekit.net/nyj5edu.css");
-
+@import url("https://use.typekit.net/smy1htf.css");
+<link rel="stylesheet" href="">
 :root {
   /* Primary Typekit font (exact family name from the kit) */
-  --primary-font: "yink";
+  --primary-font: "roca", sans-serif;
   --page-bg: #f3f8fb;
   --surface: #ffffff;
   --surface-strong: #e6f0f4;
@@ -30,8 +30,8 @@ body {
 }
 
 body {
-  font-family: "yink", sans-serif;
-  font-weight: 400;
+  font-family: "roca", sans-serif;
+  font-weight: 100;
   font-style: normal;
   color: var(--text-main);
   background:
@@ -234,7 +234,8 @@ img {
 
 h1 {
   margin: 0.3rem 0;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "roca", "Georgia", "Times New Roman", serif;
+  font-weight: 700;
   font-size: clamp(2rem, 5vw, 3.1rem);
   line-height: 1.1;
 }
@@ -376,6 +377,8 @@ h1 {
 
 .hero-copy h2 {
   margin: 0;
+  font-family: "roca", "Georgia", "Times New Roman", serif;
+  font-weight: 700;
   font-size: clamp(1.4rem, 3.6vw, 2rem);
   line-height: 1.2;
 }
@@ -452,7 +455,8 @@ h1 {
 
 .about-copy h1 {
   margin: 0 0 1rem 0;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "roca", "Georgia", "Times New Roman", serif;
+  font-weight: 700;
   font-size: clamp(1.8rem, 4vw, 2.4rem);
   line-height: 1.2;
 }
@@ -478,6 +482,8 @@ h1 {
 .text-block h2 {
   margin-top: 0;
   margin-bottom: 0.8rem;
+  font-family: "roca", "Georgia", "Times New Roman", serif;
+  font-weight: 700;
   font-size: 1.6rem;
 }
 
@@ -525,6 +531,8 @@ a {
 
 .project-section h2 {
   margin: 0;
+  font-family: "roca", "Georgia", "Times New Roman", serif;
+  font-weight: 700;
   font-size: 1.45rem;
 }
 
