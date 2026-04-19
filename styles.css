@@ -2,7 +2,10 @@
    EASY THEME SETTINGS
    Update these colors first.
    ============================== */
+:@import url("https://use.typekit.net/nyj5edu.css");
 :root {
+  /* Primary Typekit font (from your Adobe kit) */
+  --primary-font: "RL Horizon";
   --page-bg: #f3f8fb;
   --surface: #ffffff;
   --surface-strong: #e6f0f4;
@@ -26,7 +29,7 @@ body {
 }
 
 body {
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: var(--primary-font), "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--text-main);
   background:
     radial-gradient(circle at 12% 8%, #ffffff 0%, transparent 34%),
