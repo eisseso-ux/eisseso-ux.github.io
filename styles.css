@@ -84,7 +84,7 @@ img {
   justify-content: space-between;
   padding-left: 0.35rem;
   padding-right: 1rem;
-  padding-top: 3rem;
+  /* allow .site-header .container's vertical padding to control centering */
 }
 
 .header-left {
