@@ -225,20 +225,26 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
 
     galleryRoot.innerHTML = '';
     const flat = [];
+    const pageH1Text = (document.querySelector('h1') && document.querySelector('h1').textContent) ? document.querySelector('h1').textContent.trim() : '';
 
     galleryData.forEach((category) => {
         const section = document.createElement('section');
         section.className = 'project-section';
 
-        const header = document.createElement('div');
-        header.className = 'section-header';
-        const h2 = document.createElement('h2');
-        h2.className = 'section-title';
-        h2.textContent = category.title || '';
-        const p = document.createElement('p');
-        p.className = 'section-description';
-        p.textContent = category.description || '';
-        header.append(h2, p);
+        // Only render a section header if it doesn't duplicate the page-level h1
+        const categoryTitle = (category.title || '').toString().trim();
+        let header = null;
+        if (categoryTitle && categoryTitle !== pageH1Text) {
+            header = document.createElement('div');
+            header.className = 'section-header';
+            const h2 = document.createElement('h2');
+            h2.className = 'section-title';
+            h2.textContent = categoryTitle;
+            const p = document.createElement('p');
+            p.className = 'section-description';
+            p.textContent = category.description || '';
+            header.append(h2, p);
+        }
 
         const grid = document.createElement('div');
         grid.className = 'gallery-grid';
@@ -298,7 +304,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
             }
         });
 
-        section.append(header, grid);
+        if (header) section.append(header, grid); else section.append(grid);
         galleryRoot.appendChild(section);
     });
 
