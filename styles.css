@@ -194,12 +194,17 @@ img {
   font-weight: 600;
   font-size: 1.10rem;
   text-align: center;
-  color: #d5d8dc;
+  color: #ffffff;
   background: transparent;
   border: none;
   border-radius: 0;
   text-decoration: none;
   z-index: 3;
+}
+
+/* Projects meta text (section descriptions) — ensure high contrast on dark thumbnails */
+.section-description {
+  color: #ffffff;
 }
 
 @media (max-width: 640px) {
