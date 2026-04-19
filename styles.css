@@ -33,10 +33,7 @@ body {
   font-weight: 100;
   font-style: normal;
   color: var(--text-main);
-  background:
-    radial-gradient(circle at 12% 8%, #ffffff 0%, transparent 34%),
-    radial-gradient(circle at 88% 10%, #dff0f6 0%, transparent 30%),
-    var(--page-bg);
+  background: var(--page-bg);
   line-height: 1.6;
 }
 
