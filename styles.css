@@ -6,7 +6,7 @@
 :root {
   /* Primary Typekit font (exact family name from the kit) */
   --primary-font: "roca", sans-serif;
-  --page-bg: #f3f8fb;
+  --page-bg: #ffffff;
   --surface: #ffffff;
   --surface-strong: #e6f0f4;
   --text-main: #20303a;
@@ -66,7 +66,7 @@ img {
 }
 
 .site-header .container {
-  padding: 25px 20px 10px;
+  padding: 50px 20px 30px;
   text-align: center;
   height: 120px;
   display: flex;
@@ -581,9 +581,8 @@ a {
 
 .gallery-meta {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: center;
+  bottom: center;
   padding: 0.5rem 0.6rem;
   background: transparent;
   color: #fff;
@@ -591,7 +590,6 @@ a {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  text-shadow: 0 0 10px rgba(0,0,0,0.65);
 }
 
 
