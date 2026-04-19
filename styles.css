@@ -63,16 +63,16 @@ img {
 }
 
 .site-header .container {
-  padding: 50px 20px 30px;
+  padding: 100px 20px 60px;
   text-align: center;
-  height: 120px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .compact-header .container {
-  padding-top: 1.6rem;
+  padding-top: 3.2rem;
 }
 
 /* Header row layout: signature on left, content on the right */
@@ -84,7 +84,7 @@ img {
   justify-content: space-between;
   padding-left: 0.35rem;
   padding-right: 1rem;
-  padding-top: 1.5rem;
+  padding-top: 3rem;
 }
 
 .header-left {
@@ -186,13 +186,14 @@ img {
 
 .index-gallery .project-card-meta {
   position: absolute;
-  left: 0.8rem;
-  bottom: 0.75rem;
-  transform: none;
-  padding: 0;
+  inset: 0; /* fill the card */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.8rem;
   font-weight: 600;
   font-size: 1.10rem;
-  text-align: left;
+  text-align: center;
   color: #d5d8dc;
   background: transparent;
   border: none;
