@@ -374,8 +374,9 @@ function setupLightbox() {
             img.alt = `${item.title} - ${item.label}`;
         }
         if (caption) {
-            const fallbackCaption = `${item.title} | ${item.label}`;
-            caption.textContent = (item.caption || '').trim() || fallbackCaption;
+            const captionText = (item.caption || '').trim();
+            caption.textContent = captionText;
+            caption.style.display = captionText ? '' : 'none';
         }
         lb.classList.add('visible');
         lb.setAttribute('aria-hidden', 'false');
