@@ -3,7 +3,6 @@
    Update these colors first.
    ============================== */
 @import url("https://use.typekit.net/smy1htf.css");
-<link rel="stylesheet" href="">
 :root {
   /* Primary Typekit font (exact family name from the kit) */
   --primary-font: "roca", sans-serif;
@@ -67,7 +66,7 @@ img {
 }
 
 .site-header .container {
-  padding: 10px 20px;
+  padding: 25px 20px 10px;
   text-align: center;
   height: 120px;
   display: flex;
@@ -109,9 +108,9 @@ img {
 .site-signature {
   display: block;
   width: auto;
-  max-width: min(520px, 48vw);
-  height: clamp(44px, 6vh, 60px);
-  max-height: 60px;
+  max-width: min(600px, 55vw);
+  height: clamp(51px, 7vh, 69px);
+  max-height: 69px;
   margin: 0;
 }
 
@@ -818,9 +817,9 @@ a {
 
   .header-left .header-slug-logo {
     width: auto;
-    max-width: min(35vw, 140px);
+    max-width: min(40vw, 161px);
     height: auto;
-    max-height: 34px;
+    max-height: 39px;
     margin: 0 auto;
   }
 
