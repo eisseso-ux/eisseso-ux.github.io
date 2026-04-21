@@ -463,6 +463,22 @@ h1 {
   display: block;
 }
 
+/* Reduce the about photo to ~85% (15% smaller) and align it to the
+   right edge of its column so the text sits adjacent. Move the
+   text block up to align with the top of the image. */
+.about-image {
+  justify-self: end;
+}
+
+.about-image img {
+  width: 85%;
+  max-width: 85%;
+}
+
+.about-copy {
+  align-self: start;
+}
+
 .about-copy {
   padding: 0.6rem 0.4rem 0.6rem 0.4rem;
 }
