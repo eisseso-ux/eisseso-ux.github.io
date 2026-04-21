@@ -436,6 +436,18 @@ h1 {
   align-items: center;
 }
 
+/* Place the image in the right column and keep the text on the left
+   but right-aligned so it sits snug against the photo. Responsive
+   rules already collapse the layout at smaller widths. */
+.about-image {
+  grid-column: 2;
+}
+
+.about-copy {
+  grid-column: 1;
+  text-align: right;
+}
+
 .about-image {
   margin: 0;
   overflow: hidden;
