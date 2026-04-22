@@ -433,19 +433,22 @@ h1 {
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
-  align-items: start;
+  align-items: flex-start;
 }
 
-/* Place the image in the right column and keep the text on the left
-   but right-aligned so it sits snug against the photo. Responsive
-   rules already collapse the layout at smaller widths. */
+/* Keep the image on the left and the text on the right.
+   Responsive rules already collapse the layout at smaller widths. */
 .about-image {
   grid-column: 2;
+  grid-row: 1;
 }
 
 .about-copy {
   grid-column: 1;
-  text-align: right;
+  grid-row: 1;
+  text-align: left;
+  align-self: start;
+  margin-top: 0;
 }
 
 .about-image {
@@ -463,11 +466,8 @@ h1 {
   display: block;
 }
 
-/* Reduce the about photo to ~85% (15% smaller) and align it to the
-   right edge of its column so the text sits adjacent. Move the
-   text block up to align with the top of the image. */
 .about-image {
-  justify-self: end;
+  justify-self: start;
 }
 
 .about-image img {
@@ -499,6 +499,12 @@ h1 {
 
 .about-copy p:last-child {
   margin-bottom: 0;
+}
+
+@media (min-width: 901px) {
+  .about-copy {
+    margin-top: -0.9rem;
+  }
 }
 .bio,
 .contact {
