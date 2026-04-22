@@ -433,7 +433,7 @@ h1 {
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
 }
 
 /* Place the image in the right column and keep the text on the left
@@ -480,7 +480,7 @@ h1 {
 }
 
 .about-copy {
-  padding: 0.6rem 0.4rem 0.6rem 0.4rem;
+  padding: 0 0.4rem 0.6rem 0.4rem;
 }
 
 .about-copy h1 {
