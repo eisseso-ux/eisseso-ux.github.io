@@ -158,12 +158,10 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.427) 24%,
-    rgba(0, 0, 0, 0.14) 44%,
-    rgba(0, 0, 0, 0.0) 80%,
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.58) 100%
   );
   pointer-events: none;
   z-index: 2;
@@ -176,8 +174,8 @@ img {
 
 .index-gallery .project-sample {
   width: 100%;
-  height: clamp(180px, 22vw, 260px);
-  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   object-position: center;
   display: block;
   position: relative;
@@ -211,10 +209,6 @@ img {
   .index-gallery {
     grid-template-columns: 1fr;
     gap: 0.6rem;
-  }
-
-  .index-gallery .project-sample {
-    height: clamp(140px, 42vw, 220px);
   }
 }
 @media (min-width: 641px) and (max-width: 900px) {
