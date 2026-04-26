@@ -23,10 +23,33 @@ jobs:
       - name: Generate optimized high-res thumbnails
         run: |
           set -euo pipefail
-          mkdir -p thumbs
+          mkdir -p thumbs/images
+
+          # Remove legacy non-webp artifacts so thumbs stays a clean mirror.
+          if [ -d thumbs/images ]; then
+            find thumbs/images -type f ! -iname '*.webp' -delete
+          fi
+
+          # Delete stale webp thumbs that no longer have a matching source image.
+          if [ -d thumbs/images ]; then
+            find thumbs/images -type f -iname '*.webp' -print0 | while IFS= read -r -d '' thumb; do
+              rel="${thumb#thumbs/}"
+              base="${rel%.webp}"
+              dir="$(dirname "$base")"
+              name="$(basename "$base")"
+              if ! find "$dir" -maxdepth 1 -type f \( -iname "${name}.jpg" -o -iname "${name}.jpeg" -o -iname "${name}.png" -o -iname "${name}.gif" \) | grep -q .; then
+                rm -f "$thumb"
+              fi
+            done
+          fi
+
+          # Only generate missing thumbs or thumbs older than their source image.
           find images -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) -print0 | while IFS= read -r -d '' img; do
             thumb="thumbs/${img%.*}.webp"
             mkdir -p "$(dirname "$thumb")"
+            if [ -f "$thumb" ] && [ "$thumb" -nt "$img" ]; then
+              continue
+            fi
             # 720px longest side keeps thumbnails crisp on modern/high-DPI displays.
             convert "$img" \
               -auto-orient \
@@ -42,6 +65,10 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add thumbs || true
-          git commit -m "Update optimized thumbnails" || true
-          git push || true
+          git add -A thumbs || true
+          if git diff --cached --quiet; then
+            echo "No thumbnail changes to commit"
+            exit 0
+          fi
+          git commit -m "Update optimized thumbnails"
+          git push
