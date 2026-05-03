@@ -813,6 +813,16 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .about-image {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .about-copy {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .about-image img {
     min-height: 300px;
   }
