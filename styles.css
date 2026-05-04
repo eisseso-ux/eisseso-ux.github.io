@@ -816,6 +816,7 @@ a {
   .about-image {
     grid-column: auto;
     grid-row: auto;
+    justify-self: center;
   }
 
   .about-copy {
