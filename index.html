@@ -102,22 +102,19 @@
         const track = document.getElementById('homepage-gallery-track');
         if (!track) return;
 
-        try {
-          const response = await fetch('images/homepage/gallery.json');
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
+        const fallbackImages = [
+          'images/homepage/087991D6-AB1E-4D73-A974-BFF4DD2991CC-1321-00000075641D55B0.jpg'
+        ];
 
-          const images = await response.json();
-          if (!Array.isArray(images) || images.length === 0) return;
-
-          const slides = images.map((src, index) => {
+        function renderSlides(images) {
+          track.innerHTML = '';
+          return images.map((src, index) => {
             const slide = document.createElement('div');
             slide.className = 'homepage-gallery-slide';
             if (index === 0) slide.classList.add('is-active');
 
             const image = document.createElement('img');
-            image.src = src;
+            image.src = encodeURI(src);
             image.alt = `Homepage gallery image ${index + 1}`;
             image.loading = index === 0 ? 'eager' : 'lazy';
             image.decoding = 'async';
@@ -126,6 +123,19 @@
             track.appendChild(slide);
             return slide;
           });
+        }
+
+        try {
+          const response = await fetch('images/homepage/gallery.json');
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const fetchedImages = await response.json();
+          const images = Array.isArray(fetchedImages) && fetchedImages.length > 0
+            ? fetchedImages
+            : fallbackImages;
+          const slides = renderSlides(images);
 
           if (slides.length < 2) return;
 
@@ -137,6 +147,7 @@
           }, 3500);
         } catch (error) {
           console.error('Failed to load homepage gallery:', error);
+          renderSlides(fallbackImages);
         }
       })();
     </script>

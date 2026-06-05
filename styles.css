@@ -348,7 +348,7 @@ h1 {
    ============================== */
 .homepage-gallery {
   width: 100%;
-  height: 400px;
+  aspect-ratio: 7 / 2;
   margin: 0;
   padding: 0;
   overflow: hidden;
