@@ -181,10 +181,9 @@ img {
 
 .index-gallery .project-card-meta {
   position: absolute;
-  /* place a centered caption near the bottom rather than covering the whole card */
-  bottom: 1rem;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,9 +192,10 @@ img {
   font-size: 1.05rem;
   text-align: center;
   color: #000;
-  background: rgba(255, 255, 255, 0.95);
+  /* reduce opacity by ~20% from previous 0.95 -> ~0.75 */
+  background: rgba(255, 255, 255, 0.75);
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   text-decoration: none;
   z-index: 3;
   max-width: calc(100% - 2rem);
@@ -661,16 +661,21 @@ a {
 
 .gallery-meta {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.6rem;
-  background: transparent;
-  color: #fff;
+  padding: 0.35rem 0.6rem;
+  background: rgba(255, 255, 255, 0.75);
+  color: #000;
   font-size: 0.95rem;
   gap: 0.6rem;
   text-align: center;
+  border-radius: 0;
+  z-index: 3;
+  max-width: calc(100% - 2rem);
 }
 
 
