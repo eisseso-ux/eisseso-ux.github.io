@@ -877,6 +877,18 @@ a {
     min-height: 300px;
   }
 
+  /* Center the about page photo horizontally on small screens */
+  .about-image {
+    justify-self: center;
+  }
+
+  .about-image img {
+    width: 85%;
+    max-width: 85%;
+    margin-inline: auto;
+    display: block;
+  }
+
   /* Stack the header logo + nav for mobile */
   .header-row {
     flex-direction: column;
