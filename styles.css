@@ -351,6 +351,7 @@ h1 {
   width: 100%;
   aspect-ratio: 7 / 2;
   margin: 0;
+  margin-bottom: 3rem;
   padding: 0;
   overflow: hidden;
   position: relative;
