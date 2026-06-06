@@ -850,9 +850,12 @@ a {
     flex-direction: column;
     gap: 1rem;
   }
-
   .button-link {
-    width: 100%;
+    /* Make full-width buttons slightly inset from the viewport on small screens */
+    width: calc(100% - 2rem);
+    max-width: 520px;
+    margin-inline: auto;
+    box-sizing: border-box;
   }
 
   .about-layout {
