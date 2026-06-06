@@ -181,20 +181,24 @@ img {
 
 .index-gallery .project-card-meta {
   position: absolute;
-  inset: 0; /* fill the card */
+  /* place a centered caption near the bottom rather than covering the whole card */
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.8rem;
-  font-weight: 600;
-  font-size: 1.10rem;
+  padding: 0.35rem 0.8rem;
+  font-weight: 700;
+  font-size: 1.05rem;
   text-align: center;
-  color: #ffffff;
-  background: transparent;
+  color: #000;
+  background: rgba(255, 255, 255, 0.95);
   border: none;
-  border-radius: 0;
+  border-radius: 6px;
   text-decoration: none;
   z-index: 3;
+  max-width: calc(100% - 2rem);
 }
 
 /* Projects meta text (section descriptions) — ensure high contrast on dark thumbnails */
