@@ -135,6 +135,19 @@
           const images = Array.isArray(fetchedImages) && fetchedImages.length > 0
             ? fetchedImages
             : fallbackImages;
+          // Shuffle images so the slideshow starts in a random order each load
+          function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              const tmp = arr[i];
+              arr[i] = arr[j];
+              arr[j] = tmp;
+            }
+            return arr;
+          }
+
+          shuffleArray(images);
+
           const slides = renderSlides(images);
 
           if (slides.length < 2) return;
