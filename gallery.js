@@ -472,6 +472,18 @@ async function loadFolderGalleries(options = {}) {
         return;
     }
 
+    // Always attempt to include the base folder's gallery.json as the first section
+    let baseSections = [];
+    try {
+        const baseResp = await fetch(`${normalizedBase}/gallery.json`);
+        if (baseResp && baseResp.ok) {
+            const baseData = await baseResp.json();
+            baseSections = normalizeGalleryData(baseData, title || readableFolderName(normalizedBase));
+        }
+    } catch (err) {
+        // ignore base fetch errors; we'll still try subfolders
+    }
+
     const folderSections = await Promise.all(
         folders.map(async (folder) => {
             const folderPath = `${normalizedBase}/${folder}`;
@@ -508,7 +520,7 @@ async function loadFolderGalleries(options = {}) {
         })
     );
 
-    const sections = folderSections.flat();
+    const sections = baseSections.concat(folderSections.flat());
 
     if (!sections.length) {
         console.warn('No subfolder galleries loaded; falling back to base gallery.json');
