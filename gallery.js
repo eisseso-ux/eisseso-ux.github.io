@@ -507,7 +507,9 @@ async function loadFolderGalleries(options = {}) {
                             const image = normalizeImageEntry(entry);
                             if (!image) return entry;
                             return {
-                                path: image.src.replace(/^images\/sculpture\//, `${normalizedBase}/`),
+                                path: image.src
+                                    .replace(/^images\/sculpture\//, `${normalizedBase}/`)
+                                    .replace(/^images\/Exhibitions\/[^/]+\//, `${folderPath}/`),
                                 caption: image.caption || captionForPath(captionMap, image.src)
                             };
                         })
