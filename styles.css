@@ -494,8 +494,18 @@ h1 {
 }
 
 .about-image {
-  margin: 0;
-  overflow: hidden;
+  margin: 42pt 0 45pt;
+  position: relative;
+  overflow: visible;
+  width: calc(75% - 10pt);
+}
+
+.about-image::after {
+  content: "";
+  position: absolute;
+  inset: -35pt -30pt;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 12 4 C 20 4, 27 8, 36 4 C 45 0, 52 8, 61 4 C 70 0, 79 8, 88 4 C 94 2, 98 4, 97 11 C 96 19, 100 25, 97 34 C 94 43, 100 49, 97 58 C 94 67, 100 76, 97 85 C 95 93, 92 97, 85 96 C 76 94, 70 100, 61 96 C 52 92, 44 100, 35 96 C 26 92, 19 100, 12 96 C 5 93, 2 89, 4 81 C 6 72, 0 65, 4 56 C 8 47, 0 40, 4 31 C 8 22, 1 16, 4 10 C 5 6, 8 4, 12 4 Z' fill='none' stroke='%23166c7d' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 
 .about-image img {
@@ -513,8 +523,9 @@ h1 {
 }
 
 .about-image img {
-  width: 85%;
-  max-width: 85%;
+  width: 100%;
+  max-width: 100%;
+  min-height: 0;
 }
 
 .about-copy {
@@ -874,6 +885,7 @@ a {
     grid-column: auto;
     grid-row: auto;
     justify-self: center;
+    width: calc(75% - 10pt);
   }
 
   .about-copy {
@@ -882,7 +894,7 @@ a {
   }
 
   .about-image img {
-    min-height: 300px;
+    min-height: 0;
   }
 
   /* Center the about page photo horizontally on small screens */
@@ -891,8 +903,8 @@ a {
   }
 
   .about-image img {
-    width: 85%;
-    max-width: 85%;
+    width: 100%;
+    max-width: 100%;
     margin-inline: auto;
     display: block;
   }
