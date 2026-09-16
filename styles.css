@@ -645,24 +645,29 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.2rem;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 0.8rem;
+  min-height: 2.3rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--accent-strong);
+  border-radius: 20pt;
+  font-size: 0.85rem;
+  line-height: 1;
   letter-spacing: 0.04em;
   text-transform: lowercase;
   text-decoration: none;
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.75);
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  color: var(--accent-strong);
+  background: transparent;
+  width: auto;
+  font-weight: 600;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
 }
 
 .show-about-link:hover,
 .show-about-link:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(28, 140, 163, 0.08);
-  border-color: var(--accent);
+  background: var(--accent-strong);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(22, 72, 93, 0.18);
+  animation: button-pop 320ms ease-out;
 }
 
 .section-description {
@@ -750,10 +755,24 @@ a {
   align-items: center;
   gap: 0.7rem;
   width: fit-content;
-  color: var(--text-main);
+  color: var(--accent-strong);
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 600;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--accent-strong);
+  border-radius: 20pt;
+  background: transparent;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  background: var(--accent-strong);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(22, 72, 93, 0.18);
+  animation: button-pop 320ms ease-out;
 }
 
 .back-arrow {
@@ -762,11 +781,11 @@ a {
   justify-content: center;
   width: 2.7rem;
   height: 2.7rem;
-  border: 1px solid var(--border);
+  border: 2px solid currentColor;
   border-radius: 50%;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   line-height: 1;
-  background: rgba(255, 255, 255, 0.8);
+  background: transparent;
 }
 
 .show-about-image-wrap {
