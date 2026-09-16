@@ -55,6 +55,7 @@ function collectCardsInSourceOrder(grid) {
 
 function applyLeftToRightMasonry(grid) {
     if (!grid) return;
+    if (window.matchMedia('(max-width: 640px)').matches) return;
 
     const cards = collectCardsInSourceOrder(grid);
     if (!cards.length) return;
@@ -86,6 +87,7 @@ function applyLeftToRightMasonry(grid) {
 }
 
 function applyLeftToRightMasonryAll() {
+    if (window.matchMedia('(max-width: 640px)').matches) return;
     document.querySelectorAll('.gallery-grid').forEach((grid) => {
         applyLeftToRightMasonry(grid);
     });
@@ -211,6 +213,39 @@ function ensureLightboxMarkup() {
 
     document.body.appendChild(lb);
     return lb;
+}
+
+function setupMobileGalleryActiveState() {
+    if (!window.matchMedia('(max-width: 640px)').matches) return;
+
+    document.querySelectorAll('.gallery-grid').forEach((grid) => {
+        const cards = [...grid.querySelectorAll('.gallery-card')];
+        if (!cards.length) return;
+
+        const update = () => {
+            const gridCenter = grid.scrollLeft + (grid.clientWidth / 2);
+            let activeIndex = 0;
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - gridCenter);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    activeIndex = index;
+                }
+            });
+
+            cards.forEach((card, index) => {
+                const isActive = index === activeIndex;
+                card.classList.toggle('is-active', isActive);
+                card.classList.toggle('is-side', !isActive);
+            });
+        };
+
+        update();
+        grid.addEventListener('scroll', update, { passive: true });
+    });
 }
 
 function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
@@ -344,6 +379,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
 
     setupLightbox();
     ensureMasonryResizeHandler();
+    setupMobileGalleryActiveState();
     window.requestAnimationFrame(applyLeftToRightMasonryAll);
 
     // Render compact thumbnail strip when page uses the `.gallery` template
