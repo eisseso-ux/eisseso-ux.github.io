@@ -203,7 +203,7 @@ function ensureLightboxMarkup() {
 
     lb.innerHTML = `
         <div class="lightbox-figure" style="position:relative;">
-            <button id="lightbox-close" class="lightbox-close">Close</button>
+            <button id="lightbox-close" class="lightbox-close" aria-label="Close image">Close</button>
             <img id="lightbox-image" alt="" />
             <figcaption id="lightbox-caption"></figcaption>
             <button id="lightbox-prev" class="lightbox-arrow lightbox-prev" style="position:absolute; left:12px; top:50%; transform:translateY(-50%);">‹</button>
