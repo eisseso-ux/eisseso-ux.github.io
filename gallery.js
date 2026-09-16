@@ -237,13 +237,29 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
         if (categoryTitle && categoryTitle !== pageH1Text) {
             header = document.createElement('div');
             header.className = 'section-header';
+
+            const headingRow = document.createElement('div');
+            headingRow.className = 'section-heading-row';
+
             const h2 = document.createElement('h2');
             h2.className = 'section-title';
             h2.textContent = categoryTitle;
+
+            if (categoryTitle.toLowerCase().includes('hideous darlings')) {
+                section.id = 'hideous-darlings-2023';
+                const aboutLink = document.createElement('a');
+                aboutLink.href = 'hideous-darlings-about.html';
+                aboutLink.className = 'show-about-link';
+                aboutLink.textContent = 'about the show';
+                headingRow.append(h2, aboutLink);
+            } else {
+                headingRow.append(h2);
+            }
+
             const p = document.createElement('p');
             p.className = 'section-description';
             p.textContent = category.description || '';
-            header.append(h2, p);
+            header.append(headingRow, p);
         }
 
         const grid = document.createElement('div');

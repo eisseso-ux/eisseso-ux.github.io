@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About the Show | Hideous Darlings</title>
+    <meta name="description" content="About the Hideous Darlings exhibition by Olivia Eisses." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="images/logos/slug logo plain.svg" />
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="container header-row">
+        <div class="header-left">
+          <img src="images/logos/oliviaeissesnamelogo.svg" alt="Olivia Eisses" class="site-signature" />
+          <img src="images/logos/slug logo plain.svg" alt="Slug logo" class="slug-logo header-slug-logo" />
+        </div>
+        <div class="header-right">
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <div class="nav-dropdown">
+              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false">Projects &amp; Artworks</a>
+              <div class="dropdown-menu" aria-label="Project categories">
+                <a href="plush.html">Fleece Animals</a>
+                <a href="sculpture.html">Gallery Work</a>
+                <a href="wearable-design.html">Clothing Design</a>
+                <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
+                <a href="photography.html">Photography</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="show-about-main">
+      <div class="container show-about-container">
+        <a href="sculpture.html#hideous-darlings-2023" class="back-link" aria-label="Back to exhibitions">
+          <span class="back-arrow">←</span>
+          <span>Back</span>
+        </a>
+
+        <div class="show-about-image-wrap">
+          <img src="images/Exhibitions/Hideous Darlings - 2023/IMG_7426.jpg" alt="Hideous Darlings show image" class="show-about-image" />
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <img src="images/logos/slug logo plain.svg" alt="Slug logo" class="slug-logo footer-slug-logo" />
+        <p>&copy; <span id="year"></span> Olivia Eisses. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="gallery.js"></script>
+    <script>
+      document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+      (function(){
+        const DELAY = 300;
+        document.querySelectorAll('.nav-dropdown').forEach(drop => {
+          let timeout = null;
+          const toggle = drop.querySelector('.drop-toggle');
+          function open(){
+            clearTimeout(timeout);
+            drop.classList.add('open');
+            if(toggle) toggle.setAttribute('aria-expanded','true');
+          }
+          function close(){
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>{
+              drop.classList.remove('open');
+              if(toggle) toggle.setAttribute('aria-expanded','false');
+            }, DELAY);
+          }
+          drop.addEventListener('mouseenter', open);
+          drop.addEventListener('mouseleave', close);
+          drop.addEventListener('focusin', open);
+          drop.addEventListener('focusout', close);
+        });
+      })();
+    </script>
+  </body>
+</html>
