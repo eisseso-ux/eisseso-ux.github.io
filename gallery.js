@@ -250,7 +250,17 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
                 const aboutLink = document.createElement('a');
                 aboutLink.href = 'hideous-darlings-about.html';
                 aboutLink.className = 'show-about-link';
-                aboutLink.textContent = 'about the show';
+
+                const aboutIcon = document.createElement('span');
+                aboutIcon.className = 'show-about-icon';
+                aboutIcon.setAttribute('aria-hidden', 'true');
+                aboutIcon.textContent = '→';
+
+                const aboutLabel = document.createElement('span');
+                aboutLabel.className = 'show-about-label';
+                aboutLabel.textContent = 'about the show';
+
+                aboutLink.append(aboutIcon, aboutLabel);
                 headingRow.append(h2, aboutLink);
             } else {
                 headingRow.append(h2);
