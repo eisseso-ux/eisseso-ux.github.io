@@ -254,13 +254,17 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
                 const aboutIcon = document.createElement('span');
                 aboutIcon.className = 'show-about-icon';
                 aboutIcon.setAttribute('aria-hidden', 'true');
-                aboutIcon.textContent = '→';
+                aboutIcon.innerHTML = `
+                  <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path d="M5 5.5L9 9l-4 3.5" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                `;
 
                 const aboutLabel = document.createElement('span');
                 aboutLabel.className = 'show-about-label';
                 aboutLabel.textContent = 'about the show';
 
-                aboutLink.append(aboutIcon, aboutLabel);
+                aboutLink.append(aboutLabel, aboutIcon);
                 headingRow.append(h2, aboutLink);
             } else {
                 headingRow.append(h2);

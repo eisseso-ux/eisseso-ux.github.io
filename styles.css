@@ -617,6 +617,11 @@ a {
   padding: 2rem 0;
 }
 
+.projects-main h1 {
+  text-align: left;
+  margin: 0.3rem 0 13pt;
+}
+
 .project-section {
   padding: 1.2rem;
   margin-bottom: 1.3rem;
@@ -645,20 +650,20 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  padding: 0.4rem 0.5rem 0.4rem 0.15rem;
+  gap: 0.7rem;
+  padding: 0.2rem 0;
   border: 0;
   border-radius: 0;
-  font-size: 0.85rem;
+  font-size: 0.62rem;
   line-height: 1;
   letter-spacing: 0.04em;
-  text-transform: lowercase;
+  text-transform: uppercase;
   text-decoration: none;
-  color: var(--accent-strong);
+  color: #1f2b33;
   background: transparent;
   width: auto;
-  font-weight: 600;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+  font-weight: 700;
+  transition: transform 180ms ease, opacity 180ms ease;
 }
 
 .show-about-link .show-about-label {
@@ -668,29 +673,39 @@ a {
 
 .show-about-link:hover,
 .show-about-link:focus-visible {
-  color: #ffffff;
-  background: var(--accent-strong);
-  border-radius: 20pt;
-  padding-left: 0.7rem;
-  padding-right: 0.9rem;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 12px rgba(22, 72, 93, 0.18);
-  animation: button-pop 320ms ease-out;
+  color: #1f2b33;
+  background: transparent;
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .show-about-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.15rem;
-  height: 2.15rem;
-  border: 2px solid currentColor;
+  width: 1.9rem;
+  height: 1.9rem;
   border-radius: 50%;
-  font-size: 1.2rem;
-  line-height: 1;
   background: transparent;
+  border: 2px solid #1f2b33;
+  color: #1f2b33;
   flex-shrink: 0;
-  transform: translateY(-0.02em);
+  transform: translateY(0.02rem);
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.show-about-link:hover .show-about-icon,
+.show-about-link:focus-visible .show-about-icon {
+  background: #1f2b33;
+  border-color: #1f2b33;
+  color: #ffffff;
+}
+
+.show-about-icon svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  display: block;
+  transform: translateX(0.06rem);
 }
 
 .section-description {
@@ -779,43 +794,56 @@ a {
   justify-content: center;
   gap: 0.7rem;
   width: fit-content;
-  color: var(--accent-strong);
+  color: #1f2b33;
   text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 600;
-  padding: 0.3rem 0.5rem 0.3rem 0.2rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0;
   border: 0;
   border-radius: 0;
   background: transparent;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease, border-radius 180ms ease, padding 180ms ease;
+  transition: transform 180ms ease, opacity 180ms ease;
 }
 
 .back-link:hover,
 .back-link:focus-visible {
-  background: var(--accent-strong);
-  color: #ffffff;
-  border-radius: 20pt;
-  padding-left: 0.7rem;
-  padding-right: 0.9rem;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 12px rgba(22, 72, 93, 0.18);
-  animation: button-pop 320ms ease-out;
+  color: #1f2b33;
+  background: transparent;
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .back-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.15rem;
-  height: 2.15rem;
-  border: 2px solid currentColor;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 2px solid #1f2b33;
   border-radius: 50%;
-  font-size: 1.15rem;
   line-height: 1;
   background: transparent;
   flex-shrink: 0;
-  transform: translateY(-0.02em);
+  transform: translateY(0.02rem);
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
   padding: 0;
+  color: #1f2b33;
+}
+
+.back-link:hover .back-arrow,
+.back-link:focus-visible .back-arrow {
+  background: #1f2b33;
+  border-color: #1f2b33;
+  color: #ffffff;
+}
+
+.back-arrow svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  display: block;
+  transform: translateX(-0.04rem);
 }
 
 .show-about-image-wrap {
