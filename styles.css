@@ -172,7 +172,8 @@ img {
   --pointer-x: 0;
   --pointer-y: 0;
   --card-color: #e8f4f3;
-  --card-accent: #1c8ca3;
+  --card-accent: #9bcfcd;
+  --label-color: #397b7a;
   position: relative;
   min-height: 390px;
   display: flex;
@@ -202,23 +203,27 @@ img {
 }
 
 .projects-categories .project-card:nth-child(2) {
-  --card-color: #f8e6e8;
-  --card-accent: #b94a68;
+  --card-color: #fae9ed;
+  --card-accent: #dda6b5;
+  --label-color: #914e65;
 }
 
 .projects-categories .project-card:nth-child(3) {
-  --card-color: #f8efd9;
-  --card-accent: #c88328;
+  --card-color: #fcf2df;
+  --card-accent: #e7bd7d;
+  --label-color: #9a6a2d;
 }
 
 .projects-categories .project-card:nth-child(4) {
-  --card-color: #e9e3f6;
-  --card-accent: #7455a8;
+  --card-color: #f0ebfa;
+  --card-accent: #b8a5d7;
+  --label-color: #66518d;
 }
 
 .projects-categories .project-card:nth-child(5) {
-  --card-color: #e5f0df;
-  --card-accent: #53883d;
+  --card-color: #eaf5e5;
+  --card-accent: #a9ca9a;
+  --label-color: #557d49;
 }
 
 .projects-categories .project-card:hover,
@@ -277,15 +282,13 @@ img {
   font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 700;
   line-height: 1.05;
-  color: var(--card-accent);
-  -webkit-text-stroke: 3px var(--card-color);
-  paint-order: stroke fill;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+  color: var(--label-color);
+  text-shadow: none;
 }
 
 @media (min-width: 761px) {
   .project-card-title {
-    top: 45%;
+    top: 42%;
   }
 }
 
