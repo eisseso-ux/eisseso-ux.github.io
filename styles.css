@@ -294,7 +294,8 @@ img {
 
 @media (prefers-reduced-motion: reduce) {
   .projects-categories .project-card,
-  .project-shape {
+  .project-shape,
+  .homepage-gallery {
     transition: none;
   }
 }
@@ -453,7 +454,13 @@ h1 {
   padding: 0;
   overflow: hidden;
   position: relative;
-  background: #122029;
+  background: #ffffff;
+  opacity: 0;
+  transition: opacity 2500ms ease;
+}
+
+.homepage-gallery.is-visible {
+  opacity: 1;
 }
 
 .homepage-gallery-viewport {
