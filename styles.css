@@ -1205,6 +1205,18 @@ a {
     box-sizing: border-box;
   }
 
+  .folder-gallery-section.is-collapsed .gallery-grid::after {
+    display: none;
+  }
+
+  .folder-gallery-section.is-collapsed .gallery-card.is-preview-hidden {
+    display: block;
+  }
+
+  .gallery-expand {
+    display: none;
+  }
+
   .gallery-grid::-webkit-scrollbar {
     display: none;
   }
