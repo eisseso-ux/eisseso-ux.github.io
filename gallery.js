@@ -6,6 +6,16 @@
 */
 
 const galleryDataGlobal = window.galleryData || [];
+const naturalImageCollator = new Intl.Collator(undefined, {
+    numeric: true,
+    sensitivity: 'base'
+});
+
+function compareImageEntries(a, b) {
+    const aPath = typeof a === 'string' ? a : a && a.path;
+    const bPath = typeof b === 'string' ? b : b && b.path;
+    return naturalImageCollator.compare(aPath || '', bPath || '');
+}
 
 function safeImagePath(path) {
     return path.replace(/ /g, "%20");
@@ -316,7 +326,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
         const grid = document.createElement('div');
         grid.className = 'gallery-grid';
 
-            (category.images || []).forEach((entry, imageIndex) => {
+            [...(category.images || [])].sort(compareImageEntries).forEach((entry, imageIndex) => {
             const image = normalizeImageEntry(entry);
             if (!image) return;
             const imgPath = image.src;

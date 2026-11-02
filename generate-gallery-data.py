@@ -14,15 +14,22 @@ from pathlib import Path
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', 
                     '.tif', '.tiff', '.heic', '.bmp'}
 
+def natural_sort_key(value):
+    """Sort text with embedded numbers in numeric order."""
+    return [
+        (0, int(part)) if part.isdigit() else (1, part.casefold())
+        for part in re.split(r'(\d+)', str(value))
+    ]
+
 def get_all_images(directory):
     """Get all image files from a directory."""
     images = []
     for root, dirs, files in os.walk(directory):
         dirs[:] = [d for d in dirs if not d.startswith('.')]
-        for file in sorted(files):
+        for file in sorted(files, key=natural_sort_key):
             if Path(file).suffix.lower() in IMAGE_EXTENSIONS:
                 images.append(os.path.join(root, file))
-    return sorted(images)
+    return sorted(images, key=natural_sort_key)
 
 def encode_path(file_path, base_dir):
     """Convert to web-safe path."""
