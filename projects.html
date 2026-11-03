@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects & Artworks | Olivia Eisses</title>
+    <title>Artwork | Olivia Eisses</title>
     <meta
       name="description"
       content="Browse project categories and artwork galleries by Olivia Eisses."
@@ -23,14 +23,13 @@
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <div class="nav-dropdown">
-              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-current="page">Projects &amp; Artworks</a>
+              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-current="page">Artwork</a>
               <div class="dropdown-menu" aria-label="Project categories">
-                <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
-                <a href="plush.html">Fleece Animals</a>
-                <a href="sculpture.html">Gallery Work</a>
-                <a href="wearable-design.html">Clothing Design</a>
+                <a href="sculpture.html">Exhibitions</a>
+                <a href="drawing-printmaking-painting.html">2 Dimensional</a>
               </div>
             </div>
+            <a href="plush.html">Fleece Animals</a>
           </nav>
         </div>
       </div>
@@ -38,7 +37,7 @@
     
     <main class="projects-main">
       <div class="container projects-intro">
-        <h2>Projects &amp; Artworks</h2>
+        <h2>Artwork</h2>
       </div>
       <div class="container projects-categories" id="gallery-root"></div>
     </main>
@@ -53,10 +52,8 @@
     <script>
       (function(){
         const categories = [
-          { title: 'Fleece Animals', href: 'plush.html', shape: 'blob' },
-          { title: 'Gallery Work', href: 'sculpture.html', shape: 'star' },
-          { title: 'Clothing Design', href: 'wearable-design.html', shape: 'squiggle' },
-          { title: 'Drawing / Printmaking / Painting', href: 'drawing-printmaking-painting.html', shape: 'sun' },
+          { title: 'Exhibitions', href: 'sculpture.html', shape: 'star' },
+          { title: '2 Dimensional', href: 'drawing-printmaking-painting.html', shape: 'sun' },
         ];
 
         const root = document.getElementById('gallery-root');

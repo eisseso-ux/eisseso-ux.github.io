@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plush | Olivia Eisses</title>
+    <title>Fleece Animals | Olivia Eisses</title>
     <meta name="description" content="Plush gallery by Olivia Eisses." />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/svg+xml" href="images/logos/slug logo plain.svg" />
@@ -20,12 +20,21 @@
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <div class="nav-dropdown">
-              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false">Projects &amp; Artworks</a>
+              <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false">Artwork</a>
               <div class="dropdown-menu" aria-label="Project categories">
-                <a href="plush.html">Fleece Animals</a>
-                <a href="sculpture.html">Gallery Work</a>
-                <a href="wearable-design.html">Clothing Design</a>
-                <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
+                <a href="sculpture.html">Exhibitions</a>
+                <a href="drawing-printmaking-painting.html">2 Dimensional</a>
+              </div>
+            </div>
+            <div class="nav-dropdown">
+              <a href="plush.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-current="page">Fleece Animals</a>
+              <div class="dropdown-menu" aria-label="Fleece animal categories">
+                <a href="#fleece-california-spot-prawn">California Spot Prawn</a>
+                <a href="#fleece-chambered-nautilus">Chambered Nautilus</a>
+                <a href="#fleece-ochre-sea-star">Ochre Sea Star</a>
+                <a href="#fleece-pacific-banana-slug">Pacific Banana Slug</a>
+                <a href="#fleece-spotted-eagle-ray">Spotted Eagle Ray</a>
+                <a href="#fleece-works-in-progress-and-in-action">W.I.P.</a>
               </div>
             </div>
           </nav>
@@ -37,6 +46,9 @@
       <div class="container">
         <h1>Hand Sewn Stuffed Plushes</h1>
         <p>Many experimental designs of sea creatures, real and imaginary creepy crawlies, and a few that make it to my Etsy shop. Contact me for a custom plush or commission.</p>
+        <div class="contact-buttons">
+          <a href="https://oliviaeissesart.etsy.com" target="_blank" rel="noreferrer" class="button-link">Shop</a>
+        </div>
         <div class="gallery" id="gallery">
           <div class="thumbnails"></div>
           <div class="lightbox">
@@ -58,6 +70,16 @@
   loadFolderGalleries({
     basePath: "images/plush",
     folders: ["California Spot Prawn", "Chambered Nautilus", "Ochre Sea Star", "Pacific Banana Slug", "Spotted Eagle Ray","Works in Progress and in Action"]
+  }).then(() => {
+    document.querySelectorAll("#gallery .project-section").forEach((section) => {
+      const title = section.querySelector(".section-title")?.textContent.trim();
+      if (!title) return;
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      section.id = `fleece-${slug}`;
+    });
+
+    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    if (target) target.scrollIntoView();
   });
 </script>
     <script>
