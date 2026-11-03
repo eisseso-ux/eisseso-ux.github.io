@@ -1028,6 +1028,10 @@ a {
   margin: 0;
 }
 
+.show-about-paragraphs p {
+  text-indent: 2em;
+}
+
 .show-about-quote {
   text-align: left;
 }
