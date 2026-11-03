@@ -1204,6 +1204,10 @@ a {
     width: min(100% - 3rem, 800px);
   }
 
+  .show-about-paragraphs {
+    font-size: 0.8rem;
+  }
+
   .site-header .container {
     padding: 1.2rem 0 0.9rem;
   }
