@@ -26,7 +26,6 @@
               <a href="projects.html" class="drop-toggle" aria-haspopup="true" aria-expanded="false" aria-current="page">Projects &amp; Artworks</a>
               <div class="dropdown-menu" aria-label="Project categories">
                 <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
-                <a href="photography.html">Photography</a>
                 <a href="plush.html">Fleece Animals</a>
                 <a href="sculpture.html">Gallery Work</a>
                 <a href="wearable-design.html">Clothing Design</a>
@@ -38,20 +37,11 @@
     </header>
     
     <main class="projects-main">
-      <div class="container index-gallery" id="gallery-root"></div>
+      <div class="container projects-intro">
+        <h2>Projects &amp; Artworks</h2>
+      </div>
+      <div class="container projects-categories" id="gallery-root"></div>
     </main>
-
-    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-      <button class="lightbox-close" id="lightbox-close" aria-label="Close fullscreen viewer">Close</button>
-      <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Previous image">&#10094;</button>
-      <figure class="lightbox-figure">
-        <div class="lightbox-media">
-          <img id="lightbox-image" src="" alt="" />
-        </div>
-        <figcaption id="lightbox-caption"></figcaption>
-      </figure>
-      <button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Next image">&#10095;</button>
-    </div>
 
     <footer class="site-footer">
       <div class="container">
@@ -63,40 +53,44 @@
     <script>
       (function(){
         const categories = [
-          { title: 'Fleece Animals', href: 'plush.html', sample: 'images/plush/California Spot Prawn/oge02_2026_SpotPrawnEdits-10.jpg' },
-          { title: 'Gallery Work', href: 'sculpture.html', sample: 'images/sculpture/IMG_2046.JPG' },
-          { title: 'Clothing Design', href: 'wearable-design.html', sample: 'images/wearable design/clothing/oge12_2024_Quilt&Earrings-29.jpg' },
-          { title: 'Drawing / Printmaking / Painting', href: 'drawing-printmaking-painting.html', sample: 'images/drawing printmaking painting/5BA72228-5256-4082-9412-B257F7AD2153 copy.jpeg' },
-          { title: 'Photography', href: 'photography.html', sample: 'images/Photography/14C12537C-F6D0-4EA8-9CAF-87BFCEFA65D5_1_105_c.jpg' }
+          { title: 'Fleece Animals', href: 'plush.html', shape: 'blob' },
+          { title: 'Gallery Work', href: 'sculpture.html', shape: 'star' },
+          { title: 'Clothing Design', href: 'wearable-design.html', shape: 'squiggle' },
+          { title: 'Drawing / Printmaking / Painting', href: 'drawing-printmaking-painting.html', shape: 'sun' },
         ];
-
-        function thumbFor(path){
-          return ('thumbs/' + path).replace(/\.[^./]+$/, '.webp');
-        }
 
         const root = document.getElementById('gallery-root');
         root.innerHTML = '';
 
-        categories.forEach(cat => {
+        categories.forEach((cat, index) => {
           const card = document.createElement('a');
           card.className = 'project-card';
           card.href = cat.href;
           card.setAttribute('aria-label', cat.title);
+          card.style.setProperty('--card-index', index);
 
-          const img = document.createElement('img');
-          img.className = 'project-sample';
-          img.alt = cat.title;
-          img.loading = 'lazy';
-          img.src = thumbFor(cat.sample);
-          img.onerror = () => { img.src = cat.sample; };
+          const shape = document.createElement('span');
+          shape.className = `project-shape project-shape-${cat.shape}`;
+          shape.setAttribute('aria-hidden', 'true');
 
-          const meta = document.createElement('div');
-          meta.className = 'project-card-meta';
-          meta.textContent = cat.title;
+          const title = document.createElement('span');
+          title.className = 'project-card-title';
+          title.textContent = cat.title;
 
-          card.appendChild(img);
-          card.appendChild(meta);
+          card.append(shape, title);
           root.appendChild(card);
+
+          card.addEventListener('pointermove', (event) => {
+            const bounds = card.getBoundingClientRect();
+            const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+            const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+            card.style.setProperty('--pointer-x', `${x.toFixed(2)}`);
+            card.style.setProperty('--pointer-y', `${y.toFixed(2)}`);
+          });
+          card.addEventListener('pointerleave', () => {
+            card.style.setProperty('--pointer-x', '0');
+            card.style.setProperty('--pointer-y', '0');
+          });
         });
       })();
     </script>

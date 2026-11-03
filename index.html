@@ -29,7 +29,6 @@
                 <a href="sculpture.html">Gallery Work</a>
                 <a href="wearable-design.html">Clothing Design</a>
                 <a href="drawing-printmaking-painting.html">Drawing / Printmaking / Painting</a>
-                <a href="photography.html">Photography</a>
               </div>
             </div>
           </nav>
@@ -101,6 +100,7 @@
       (async function() {
         const track = document.getElementById('homepage-gallery-track');
         if (!track) return;
+        const gallery = track.closest('.homepage-gallery');
 
         const fallbackImages = [
           'images/homepage/087991D6-AB1E-4D73-A974-BFF4DD2991CC-1321-00000075641D55B0.jpg'
@@ -123,6 +123,11 @@
             track.appendChild(slide);
             return slide;
           });
+        }
+
+        function revealGallery() {
+          if (!gallery) return;
+          window.setTimeout(() => gallery.classList.add('is-visible'), 500);
         }
 
         try {
@@ -149,6 +154,7 @@
           shuffleArray(images);
 
           const slides = renderSlides(images);
+          revealGallery();
 
           if (slides.length < 2) return;
 
@@ -161,6 +167,7 @@
         } catch (error) {
           console.error('Failed to load homepage gallery:', error);
           renderSlides(fallbackImages);
+          revealGallery();
         }
       })();
     </script>

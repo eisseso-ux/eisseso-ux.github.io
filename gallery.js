@@ -6,6 +6,16 @@
 */
 
 const galleryDataGlobal = window.galleryData || [];
+const naturalImageCollator = new Intl.Collator(undefined, {
+    numeric: true,
+    sensitivity: 'base'
+});
+
+function compareImageEntries(a, b) {
+    const aPath = typeof a === 'string' ? a : a && a.path;
+    const bPath = typeof b === 'string' ? b : b && b.path;
+    return naturalImageCollator.compare(aPath || '', bPath || '');
+}
 
 function safeImagePath(path) {
     return path.replace(/ /g, "%20");
@@ -262,9 +272,11 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
     const flat = [];
     const pageH1Text = (document.querySelector('h1') && document.querySelector('h1').textContent) ? document.querySelector('h1').textContent.trim() : '';
 
-    galleryData.forEach((category) => {
+    galleryData.forEach((category, sectionIndex) => {
         const section = document.createElement('section');
         section.className = 'project-section';
+        const isCollapsible = category.collapsible === true && (category.images || []).length > 6;
+        if (isCollapsible) section.classList.add('folder-gallery-section', 'is-collapsed');
 
         // Only render a section header if it doesn't duplicate the page-level h1
         const categoryTitle = (category.title || '').toString().trim();
@@ -314,7 +326,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
         const grid = document.createElement('div');
         grid.className = 'gallery-grid';
 
-            (category.images || []).forEach((entry) => {
+            [...(category.images || [])].sort(compareImageEntries).forEach((entry, imageIndex) => {
             const image = normalizeImageEntry(entry);
             if (!image) return;
             const imgPath = image.src;
@@ -328,6 +340,7 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
 
             const btn = document.createElement('button');
             btn.className = 'gallery-card';
+            if (isCollapsible && imageIndex >= 6) btn.classList.add('is-preview-hidden');
             btn.type = 'button';
             btn.dataset.order = String(index);
             btn.setAttribute('aria-label', `Open ${readableName(imgPath)} in fullscreen`);
@@ -370,6 +383,28 @@ function renderGalleryFromData(rootId = 'gallery', captionsByPath = {}) {
         });
 
         if (header) section.append(header, grid); else section.append(grid);
+
+        if (isCollapsible && (category.images || []).length > 6) {
+            const expandButton = document.createElement('button');
+            const gridId = `folder-gallery-grid-${sectionIndex}`;
+            expandButton.type = 'button';
+            expandButton.className = 'gallery-expand';
+            expandButton.setAttribute('aria-expanded', 'false');
+            expandButton.setAttribute('aria-controls', gridId);
+            expandButton.innerHTML = `
+                <span class="gallery-expand-label">See more</span>
+                <span class="gallery-expand-icon" aria-hidden="true">↓</span>
+            `;
+            grid.id = gridId;
+            expandButton.addEventListener('click', () => {
+                const isExpanded = section.classList.toggle('is-expanded');
+                section.classList.toggle('is-collapsed', !isExpanded);
+                expandButton.setAttribute('aria-expanded', String(isExpanded));
+                expandButton.querySelector('.gallery-expand-label').textContent =
+                    isExpanded ? 'Show fewer photos' : 'See more';
+            });
+            section.appendChild(expandButton);
+        }
         galleryRoot.appendChild(section);
     });
 
@@ -559,6 +594,7 @@ async function loadFolderGalleries(options = {}) {
                     return {
                         title: section.title || readableFolderName(folder),
                         description: section.description || '',
+                        collapsible: true,
                         images: sectionImages.map((entry) => {
                             const image = normalizeImageEntry(entry);
                             if (!image) return entry;

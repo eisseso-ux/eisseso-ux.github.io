@@ -28,6 +28,7 @@ images/
 ```
 
 Each folder becomes a gallery category. All image files are automatically discovered.
+Images are ordered naturally by filename, so numeric prefixes sort as `1`, `2`, ..., `13`.
 
 ## Supported Formats
 

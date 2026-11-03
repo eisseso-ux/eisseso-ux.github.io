@@ -6,7 +6,15 @@ with all images organized by category (subfolder).
 
 import os
 import json
+import re
 from pathlib import Path
+
+def natural_sort_key(value):
+    """Sort text with embedded numbers in numeric order."""
+    return [
+        (0, int(part)) if part.isdigit() else (1, part.casefold())
+        for part in re.split(r'(\d+)', str(value))
+    ]
 
 def get_image_extensions():
     """Return set of supported image extensions."""
@@ -32,7 +40,7 @@ def scan_images_folder(base_path='images'):
         return gallery_data
     
     # Get all subdirectories (categories)
-    items = sorted(os.listdir(base_path))
+    items = sorted(os.listdir(base_path), key=natural_sort_key)
     
     for category_name in items:
         category_path = os.path.join(base_path, category_name)
@@ -44,7 +52,7 @@ def scan_images_folder(base_path='images'):
         # Scan for images in this category
         images = []
         try:
-            for filename in sorted(os.listdir(category_path)):
+            for filename in sorted(os.listdir(category_path), key=natural_sort_key):
                 filepath = os.path.join(category_path, filename)
                 
                 # Skip subdirectories
