@@ -163,8 +163,9 @@ img {
 
 .projects-categories {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 260px));
+  justify-content: center;
+  gap: 0.75rem;
   padding-bottom: 4.5rem;
 }
 
@@ -274,7 +275,7 @@ img {
 .project-card-title {
   position: absolute;
   z-index: 2;
-  top: 37%;
+  top: 41%;
   left: 15%;
   width: 70%;
   margin: 0;
@@ -288,7 +289,7 @@ img {
 
 @media (min-width: 761px) {
   .project-card-title {
-    top: 42%;
+    top: 46%;
   }
 }
 
